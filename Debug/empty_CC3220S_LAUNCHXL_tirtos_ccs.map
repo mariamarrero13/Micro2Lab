@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker PC v18.12.2                    
 ******************************************************************************
->> Linked Sat Sep  7 16:40:31 2019
+>> Linked Sat Sep  7 19:17:11 2019
 
 OUTPUT FILE NAME:   <empty_CC3220S_LAUNCHXL_tirtos_ccs.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 2000f261
@@ -140,7 +140,7 @@ section   page    origin      length       input sections
                   2000eb44    00000004     --HOLE-- [fill = 0]
                   2000eb48    00000054                  : BIOS.obj (.text:xdc_runtime_Core_assignLabel__I)
                   2000eb9c    00000052     drivers_cc32xx.aem4 : PowerCC32XX_asm.oem4 (.text:PowerCC32XX_resumeLPDS)
-                  2000ebee    00000052     empty.obj (.text:lcd_init_8d)
+                  2000ebee    00000052     empty.obj (.text:lcd_init)
                   2000ec40    00000050     sysbios.aem4 : BIOS.obj (.text:ti_sysbios_family_arm_m3_Hwi_Module_startup__E)
                   2000ec90    00000050     release_pem4.oem4 (.text:ti_sysbios_knl_Task_create)
                   2000ece0    0000004c     drivers_cc32xx.aem4 : GPIOCC32XX.oem4 (.text:GPIO_enableInt)
@@ -560,8 +560,8 @@ section   page    origin      length       input sections
                   20011381    00000001     release_pem4.oem4 (.const:xdc_runtime_Text_charTab__A)
 
 .cinit     0    20011a00    00000290     
-                  20011a00    0000026a     (.cinit..data.load) [load image, compression = lzss]
-                  20011c6a    00000002     --HOLE-- [fill = 0]
+                  20011a00    00000269     (.cinit..data.load) [load image, compression = lzss]
+                  20011c69    00000003     --HOLE-- [fill = 0]
                   20011c6c    0000000c     (__TI_handler_table)
                   20011c78    00000008     (.cinit..bss.load) [load image, compression = zero_init]
                   20011c80    00000010     (__TI_cinit_table)
@@ -660,15 +660,15 @@ MODULE SUMMARY
        Total:                       68      0         0      
                                                              
        Stack:                       0       0         1024   
-       Linker Generated:            0       654       0      
+       Linker Generated:            0       653       0      
     +--+----------------------------+-------+---------+---------+
-       Grand Total:                 17534   2372      5283   
+       Grand Total:                 17534   2371      5283   
 
 
 LINKER GENERATED COPY TABLES
 
 __TI_cinit_table @ 20011c80 records: 2, size/record: 8, table size: 16
-	.data: load addr=20011a00, load size=0000026a bytes, run addr=200105e4, run size=00000724 bytes, compression=lzss
+	.data: load addr=20011a00, load size=00000269 bytes, run addr=200105e4, run size=00000724 bytes, compression=lzss
 	.bss: load addr=20011c78, load size=00000008 bytes, run addr=20011388, run size=00000674 bytes, compression=zero_init
 
 
@@ -795,7 +795,7 @@ ffffffff  binit
 2000d829  lcd_byte                                                        
 2000fe1d  lcd_character                                                   
 2000fe3d  lcd_command                                                     
-2000ebef  lcd_init_8d                                                     
+2000ebef  lcd_init                                                        
 2000fae5  lcd_string                                                      
 2000e625  main                                                            
 2000dc49  mainThread                                                      
@@ -1282,7 +1282,7 @@ address   name
 2000eaf1  ti_sysbios_family_arm_m3_Timer_setPeriod__E                     
 2000eb49  xdc_runtime_Core_assignLabel__I                                 
 2000eb9d  PowerCC32XX_resumeLPDS                                          
-2000ebef  lcd_init_8d                                                     
+2000ebef  lcd_init                                                        
 2000ec41  ti_sysbios_family_arm_m3_Hwi_Module_startup__E                  
 2000ec91  ti_sysbios_knl_Task_create                                      
 2000ece1  GPIO_enableInt                                                  

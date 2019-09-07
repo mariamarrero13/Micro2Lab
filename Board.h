@@ -70,8 +70,8 @@ extern "C" {
 #define Board_GPIO_25                CC3220S_LAUNCHXL_GPIO_D2
 #define Board_GPIO_01                CC3220S_LAUNCHXL_GPIO_D1
 #define Board_GPIO_22                CC3220S_LAUNCHXL_GPIO_D0
-#define Board_GPIO_23                CC3220S_LAUNCHXL_GPIO_RS
-#define Board_GPIO_24                CC3220S_LAUNCHXL_GPIO_E
+#define Board_GPIO_63                CC3220S_LAUNCHXL_GPIO_RS
+#define Board_GPIO_64                CC3220S_LAUNCHXL_GPIO_E
 
 /*
  *  CC3220S_LAUNCHXL_GPIO_LED_D8 and CC3220S_LAUNCHXL_GPIO_LED_D9 are shared with the I2C
