@@ -61,6 +61,18 @@ extern "C" {
 #define Board_GPIO_07                CC3220S_LAUNCHXL_GPIO_REDLED
 #define Board_GPIO_06                CC3220S_LAUNCHXL_GPIO_PB1
 
+/* LCD GPIO definition */
+#define Board_GPIO_28                CC3220S_LAUNCHXL_GPIO_D7
+#define Board_GPIO_17                CC3220S_LAUNCHXL_GPIO_D6
+#define Board_GPIO_31                CC3220S_LAUNCHXL_GPIO_D5
+#define Board_GPIO_16                CC3220S_LAUNCHXL_GPIO_D4
+#define Board_GPIO_15                CC3220S_LAUNCHXL_GPIO_D3
+#define Board_GPIO_25                CC3220S_LAUNCHXL_GPIO_D2
+#define Board_GPIO_01                CC3220S_LAUNCHXL_GPIO_D1
+#define Board_GPIO_22                CC3220S_LAUNCHXL_GPIO_D0
+#define Board_GPIO_23                CC3220S_LAUNCHXL_GPIO_RS
+#define Board_GPIO_24                CC3220S_LAUNCHXL_GPIO_E
+
 /*
  *  CC3220S_LAUNCHXL_GPIO_LED_D8 and CC3220S_LAUNCHXL_GPIO_LED_D9 are shared with the I2C
  *  and PWM peripherals. In order for those examples to work, these LEDs are
@@ -107,17 +119,6 @@ extern "C" {
 #define Board_TMP006_ADDR            (0x41)
 #define Board_I2C_TMP006_ADDR        Board_TMP006_ADDR
 
-/* LCD GPIO definition */
-#define Board_GPIO_28                CC3220S_LAUNCHXL_GPIO_D7
-#define Board_GPIO_17                CC3220S_LAUNCHXL_GPIO_D6
-#define Board_GPIO_31                CC3220S_LAUNCHXL_GPIO_D5
-#define Board_GPIO_16                CC3220S_LAUNCHXL_GPIO_D4
-#define Board_GPIO_15                CC3220S_LAUNCHXL_GPIO_D3
-#define Board_GPIO_25                CC3220S_LAUNCHXL_GPIO_D2
-#define Board_GPIO_01                CC3220S_LAUNCHXL_GPIO_D1
-#define Board_GPIO_22                CC3220S_LAUNCHXL_GPIO_D0
-#define Board_GPIO_23                CC3220S_LAUNCHXL_GPIO_RS
-#define Board_GPIO_24                CC3220S_LAUNCHXL_GPIO_E
 
 #ifdef __cplusplus
 }
