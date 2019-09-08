@@ -64,14 +64,14 @@ extern "C" {
 /* LCD GPIO definition */
 #define Board_GPIO_28                CC3220S_LAUNCHXL_GPIO_D7
 #define Board_GPIO_17                CC3220S_LAUNCHXL_GPIO_D6
-#define Board_GPIO_31                CC3220S_LAUNCHXL_GPIO_D5
+#define Board_GPIO_30                CC3220S_LAUNCHXL_GPIO_D5
 #define Board_GPIO_16                CC3220S_LAUNCHXL_GPIO_D4
 #define Board_GPIO_15                CC3220S_LAUNCHXL_GPIO_D3
 #define Board_GPIO_25                CC3220S_LAUNCHXL_GPIO_D2
-#define Board_GPIO_01                CC3220S_LAUNCHXL_GPIO_D1
+#define Board_GPIO_00                CC3220S_LAUNCHXL_GPIO_D1
 #define Board_GPIO_22                CC3220S_LAUNCHXL_GPIO_D0
-#define Board_GPIO_63                CC3220S_LAUNCHXL_GPIO_RS
-#define Board_GPIO_64                CC3220S_LAUNCHXL_GPIO_E
+#define Board_GPIO_08                CC3220S_LAUNCHXL_GPIO_RS
+#define Board_GPIO_09                CC3220S_LAUNCHXL_GPIO_E
 
 /*
  *  CC3220S_LAUNCHXL_GPIO_LED_D8 and CC3220S_LAUNCHXL_GPIO_LED_D9 are shared with the I2C

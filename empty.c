@@ -27,8 +27,8 @@
 #define Clear           0b00000001
 #define lcd_Home        0b00000010
 #define lcd_EntryMode   0b00000110
-#define Display_off     0b00001000
-#define Display_on      0b00001110
+#define Display_off     0b00001011
+#define Display_on      0b00001111
 #define FunctionSet     0b00111000
 #define lcd_SetCursor   0b10000000
 
@@ -45,7 +45,8 @@ void lcd_init(void);
  */
 void *mainThread(void *arg0)
 {
-    uint8_t text[]   = "Hello Moto";
+    uint8_t text[]   = "Hello World";
+    uint8_t newtext[]   = "This is Maria";
     /* Call driver init functions */
     GPIO_init();
 
@@ -54,16 +55,28 @@ void *mainThread(void *arg0)
     GPIO_setConfig(Board_GPIO_06, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_FALLING);
     GPIO_setConfig(Board_GPIO_28, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D7
     GPIO_setConfig(Board_GPIO_17, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D6
-    GPIO_setConfig(Board_GPIO_31, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D5
+    GPIO_setConfig(Board_GPIO_30, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D5
     GPIO_setConfig(Board_GPIO_16, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D4
     GPIO_setConfig(Board_GPIO_15, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D3
     GPIO_setConfig(Board_GPIO_25, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D2
-    GPIO_setConfig(Board_GPIO_01, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D1
+    GPIO_setConfig(Board_GPIO_00, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D1
     GPIO_setConfig(Board_GPIO_22, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D0
-    GPIO_setConfig(Board_GPIO_63, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //RS
-    GPIO_setConfig(Board_GPIO_64, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //E
+    GPIO_setConfig(Board_GPIO_08, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //RS
+    GPIO_setConfig(Board_GPIO_09, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //E
+
+   GPIO_write(Board_GPIO_28, GPIO_OFF); //D7
+   GPIO_write(Board_GPIO_17, GPIO_OFF); //D6
+   GPIO_write(Board_GPIO_30, GPIO_OFF); //D5
+   GPIO_write(Board_GPIO_16, GPIO_OFF); //D4
+   GPIO_write(Board_GPIO_15, GPIO_OFF); //D3
+   GPIO_write(Board_GPIO_25, GPIO_OFF); //D2
+   GPIO_write(Board_GPIO_00, GPIO_OFF); //D1
+   GPIO_write(Board_GPIO_22, GPIO_OFF); //D0
+   GPIO_write(Board_GPIO_08, GPIO_OFF); //RS
+   GPIO_write(Board_GPIO_09, GPIO_OFF); //E
+
 //    /* Turn on user LED */
-//    GPIO_write(Board_GPIO_07, Board_GPIO_LED_ON);
+//   GPIO_write(Board_GPIO_07, Board_GPIO_LED_ON);
 //
 //    while (1) {
 //        if(GPIO_read(Board_GPIO_06) == 0)
@@ -71,10 +84,16 @@ void *mainThread(void *arg0)
 //        else
 //            GPIO_write(Board_GPIO_07,Board_GPIO_LED_OFF);
 //    }
-    lcd_init();
-    lcd_string(text);
 
-    return 0;
+   lcd_init();
+   lcd_string(newtext);
+   usleep(50);
+   lcd_command(lcd_SetCursor|lcd_LineTwo);
+   usleep(50);
+   lcd_string(text);
+
+   while (1) {}
+
 }
 
 
@@ -82,27 +101,31 @@ void lcd_init(void)
 {
 
 // Power-up delay
-    sleep(.040);
+    sleep(0.015);
 
 //Initialization
     lcd_command(FunctionSet);
-    usleep(40);
+    usleep(50);
 
     lcd_command(FunctionSet);
-    usleep(40);
+    usleep(50);
+
+    lcd_command(FunctionSet);
+    usleep(50);
 
     lcd_command(Display_off);
-    usleep(40);
+    usleep(50);
 
     lcd_command(Clear);
-    sleep(.002);
+    usleep(50);
 
     lcd_command(lcd_EntryMode);
-    usleep(40);
+    usleep(50);
 
-//End of Init
     lcd_command(Display_on);
-    usleep(40);
+    usleep(50);
+
+
 }
 
 
@@ -113,42 +136,43 @@ void lcd_string(uint8_t theString[])
     {
         lcd_character(theString[i]);
         i++;
-        usleep(40);
+        sleep(.1);
     }
 }
 
 void lcd_character(uint8_t theData)
 {
-    GPIO_write(Board_GPIO_63, 1);               //Select Data Register
-    GPIO_write(Board_GPIO_64,0);
+    GPIO_write(Board_GPIO_08, GPIO_ON);               // Data Register
 
-    lcd_byte(theData);                           // write the data
+    lcd_byte(theData);                                // write the data
 }
 
 void lcd_command(uint8_t theInstruction)
 {
-    GPIO_write(Board_GPIO_63, 0);  //Select Instruction Register
-    GPIO_write(Board_GPIO_64,0);
+    GPIO_write(Board_GPIO_08, GPIO_OFF);              // Instruction Register
 
-    lcd_byte(theInstruction);                    // write the instruction
+    lcd_byte(theInstruction);                         // write the instruction
 }
 
 void lcd_byte(uint8_t theByte)
 {
-    GPIO_write(Board_GPIO_28,theByte & 1<<7);
-    GPIO_write(Board_GPIO_17,theByte & 1<<6);
-    GPIO_write(Board_GPIO_31,theByte & 1<<5);
-    GPIO_write(Board_GPIO_16,theByte & 1<<4);
-    GPIO_write(Board_GPIO_15,theByte & 1<<3);
-    GPIO_write(Board_GPIO_25,theByte & 1<<2);
-    GPIO_write(Board_GPIO_01,theByte & 1<<1);
-    GPIO_write(Board_GPIO_22,theByte & 1<<0);
+
+    GPIO_write(Board_GPIO_28,(unsigned int)(1 & (theByte >> 7 )));
+    GPIO_write(Board_GPIO_17,(unsigned int)(1 & (theByte >> 6 )));
+    GPIO_write(Board_GPIO_30,(unsigned int)(1 & (theByte >> 5 )));
+    GPIO_write(Board_GPIO_16,(unsigned int)(1 & (theByte >> 4 )));
+    GPIO_write(Board_GPIO_15,(unsigned int)(1 & (theByte >> 3 )));
+    GPIO_write(Board_GPIO_25,(unsigned int)(1 & (theByte >> 2 )));
+    GPIO_write(Board_GPIO_00,(unsigned int)(1 & (theByte >> 1 )));
+    GPIO_write(Board_GPIO_22,(unsigned int)(1 & (theByte >> 0 )));
 
 
 // write the data
-    usleep(0.04);
-    GPIO_write(Board_GPIO_64,0);
-    usleep(0.08);
-    GPIO_write(Board_GPIO_64,0);
-    usleep (0.5);
+    usleep(50);
+    GPIO_write(Board_GPIO_09,GPIO_ON);
+    usleep(50);
+    GPIO_write(Board_GPIO_09,GPIO_OFF);
+    usleep (50);
+   //printf("The byte = %d %d %d %d %d %d %d %d \n", (unsigned int) 1 & (theByte >> 7 ), (unsigned int)1 & (theByte >> 6 ), (unsigned int) 1 & (theByte >> 5),  1 & (theByte >> 4 ), 1 & (theByte >> 3 ),  1 & (theByte >> 2 ),  1 & (theByte >> 1),  1 & (theByte >> 0 ));
 }
+
