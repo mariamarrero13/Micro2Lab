@@ -51,8 +51,8 @@ void *mainThread(void *arg0)
 
     /* Configure LED pin and PB1 */
     //Comment these two lines if using LCD
-//   GPIO_setConfig(Board_GPIO_07, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //LED   p62
-//   GPIO_setConfig(Board_GPIO_06, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_FALLING); // PUSHBUTTON p51
+   GPIO_setConfig(Board_GPIO_07, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //LED   p62
+   GPIO_setConfig(Board_GPIO_06, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_FALLING); // PUSHBUTTON p51
 
 
     GPIO_setConfig(Board_GPIO_28, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D7    p18
@@ -67,10 +67,10 @@ void *mainThread(void *arg0)
     GPIO_setConfig(Board_GPIO_09, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //E     p64
 
 
-//    leds();
+    leds();
 //    pushbuttons();
 //    lcd_basic();
-   circular_list();
+//   circular_list();
 
 
    while (1) {}
