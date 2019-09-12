@@ -193,44 +193,44 @@ void circular_list(void){
       uint8_t positions[] = {0,1};
       GPIO_setConfig(Board_GPIO_07, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_FALLING); //LED
       GPIO_setConfig(Board_GPIO_06, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_FALLING); // PUSHBUTTON
-      lcd_init();
+
+      lcd_init_4bit();
+      lcd_init_4bit();
       usleep(50);
       lcd_string(text[positions[0]]);
       usleep(50);
-      lcd_command(lcd_Home);
       lcd_command(lcd_SetCursor|lcd_LineTwo);
       usleep(50);
       lcd_string(text[positions[1]]);
+
 while(1){
 //    //if pushdown
       if(GPIO_read(Board_GPIO_07) == 1){          //button down pressed --CHANGE GPIO
-          lcd_init();
-          lcd_command(lcd_Home);
+          lcd_command(Clear);
           usleep(50);
           int oldpos = positions[1];
           positions[0] = positions[1];
           positions[1] = down_pressed(oldpos,STRINGS);
           lcd_string(text[positions[0]]);
           usleep(50);
-          lcd_command(lcd_Home);
           lcd_command(lcd_SetCursor|lcd_LineTwo);
           usleep(50);
           lcd_string(text[positions[1]]);
+          sleep(0.5);
 
       }
       if(GPIO_read(Board_GPIO_06) == 0){          //button up pressed -CHANGE GPIO
-          lcd_init();
-          lcd_command(lcd_Home);
+          lcd_command(Clear);
           usleep(50);
           int oldpos = positions[0];
           positions[0] = up_pressed(oldpos,STRINGS);
           positions[1] = oldpos;
           lcd_string(text[positions[0]]);
           usleep(50);
-          lcd_command(lcd_Home);
           lcd_command(lcd_SetCursor|lcd_LineTwo);
           usleep(50);
           lcd_string(text[positions[1]]);
+          sleep(0.5);
       }
 
 }
