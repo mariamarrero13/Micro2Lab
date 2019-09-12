@@ -49,10 +49,10 @@ void *mainThread(void *arg0)
     /* Call driver init functions */
     GPIO_init();
 
-    /* Configure LED pin and PB1 */
-    //Comment these two lines if using LCD
-   GPIO_setConfig(Board_GPIO_07, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //LED   p62
-   GPIO_setConfig(Board_GPIO_06, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_FALLING); // PUSHBUTTON p51
+//    /* Configure LED pin and PB1 */
+//    //Comment these two lines if using LCD
+//   GPIO_setConfig(Board_GPIO_07, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //LED   p62
+//   GPIO_setConfig(Board_GPIO_06, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_FALLING); // PUSHBUTTON p51
 
 
     GPIO_setConfig(Board_GPIO_28, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D7    p18
@@ -70,7 +70,7 @@ void *mainThread(void *arg0)
 }
 void lcd_basic(void){
     uint8_t text[] = "Yamil";
-    uint8_t text2[] = "Gonzalez";
+    uint8_t text2[] ="Gonzalez";
     usleep(400000);
     lcd_init_4bit();
 
@@ -87,7 +87,9 @@ void lcd_init_4bit(void)
 {
 
 // Power-up delay
+    GPIO_write(Board_GPIO_22,GPIO_OFF);
     sleep(0.015);
+
 //Initialization
     lcd_byte(FunctionReset);
     usleep(50);
@@ -185,6 +187,7 @@ void circular_list(void){
       lcd_command(lcd_SetCursor|lcd_LineTwo);
       usleep(50);
       lcd_string(text[positions[1]]);
+
 while(1){
 //    //if pushdown
       if(GPIO_read(Board_GPIO_07) == 1){          //button down pressed --CHANGE GPIO
