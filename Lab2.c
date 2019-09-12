@@ -30,7 +30,8 @@
 #define lcd_Home        0b00000010
 
 // Function Prototypes
-void lcd_basic(void);
+void test (void);
+void button_interrupt (void);
 void circular_list(void);
 uint8_t down_pressed(uint8_t, uint8_t);
 uint8_t up_pressed(uint8_t, uint8_t);
@@ -42,6 +43,16 @@ void lcd_string(uint8_t *);
 void lcd_init_4bit(void);
 
 /*
+ *  ======== gpioButtonFxn0 ========
+ *  Callback function for the GPIO interrupt on Board_GPIO_BUTTON0.
+ */
+void gpioButtonFxn0(uint8_t count)
+{
+    /* Clear the GPIO interrupt and toggle an LED */
+    GPIO_toggle(Board_GPIO_LED0);
+}
+
+/*
  *  ======== mainThread ========
  */
 void *mainThread(void *arg0)
@@ -49,11 +60,14 @@ void *mainThread(void *arg0)
     /* Call driver init functions */
     GPIO_init();
 
-//    /* Configure LED pin and PB1 */
-//    //Comment these two lines if using LCD
-//   GPIO_setConfig(Board_GPIO_07, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //LED   p62
-//   GPIO_setConfig(Board_GPIO_06, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_FALLING); // PUSHBUTTON p51
+//    lcd_basic();
+//   circular_list();
+    test();
 
+}
+
+void lcd_init_4bit(void)
+{
 
     GPIO_setConfig(Board_GPIO_28, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D7    p18
     GPIO_setConfig(Board_GPIO_17, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D6    p08
@@ -61,38 +75,6 @@ void *mainThread(void *arg0)
     GPIO_setConfig(Board_GPIO_15, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D4    p06
     GPIO_setConfig(Board_GPIO_22, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //E    p15
     GPIO_setConfig(Board_GPIO_25, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //RS    p21
-
-    GPIO_write(Board_GPIO_28, GPIO_OFF);
-    GPIO_write(Board_GPIO_17, GPIO_OFF);
-    GPIO_write(Board_GPIO_16, GPIO_OFF);
-    GPIO_write(Board_GPIO_15, GPIO_OFF);
-
-    GPIO_write(Board_GPIO_25, GPIO_ON);
-    GPIO_write(Board_GPIO_22, GPIO_OFF);
-
-
-
-//    lcd_basic();
-   circular_list();
-
-}
-void lcd_basic(void){
-    uint8_t text[] = "Yamil";
-    uint8_t text2[] ="Gonzalez";
-    usleep(400000);
-    lcd_init_4bit();
-
-    lcd_string(text);
-    usleep(500);
-
-    lcd_command(lcd_SetCursor|lcd_LineTwo);
-    usleep(50);
-    lcd_string(text2);
-    while (1){}
-}
-
-void lcd_init_4bit(void)
-{
 
 // Power-up delay
     usleep(40000);
@@ -177,24 +159,84 @@ void lcd_byte(uint8_t byte)
 }
 
 
-void circular_list(void){
-    const int STRINGS = 16;
-      uint8_t text[STRINGS][16] = {"Maria","Alejandra","Marrero", "Ortiz",
-                                   "Yamil", "Jose", "Gonzalez", "Zuaznabar",
-                                   "Diego", "Jose","Amador", "Bonilla",
-                                   "Christian", "Antonio", "Santiago", "Berio"};
-      uint8_t positions[] = {0,1};
-      GPIO_setConfig(Board_GPIO_07, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_FALLING); //LED
-      GPIO_setConfig(Board_GPIO_06, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_FALLING); // PUSHBUTTON
+void test(void){
+      uint8_t text[] = "base string";
 
+      uint8_t count = 0;
       lcd_init_4bit();
       lcd_init_4bit();
+      lcd_init_4bit();
       usleep(50);
-      lcd_string(text[positions[0]]);
-      usleep(50);
-      lcd_command(lcd_SetCursor|lcd_LineTwo);
-      usleep(50);
-      lcd_string(text[positions[1]]);
+
+      lcd_string(sprintf(text, "%s%d", text, count++));
+      sleep(2);
+
+while(count<17){
+
+          lcd_command(Clear);
+          usleep(50);
+          lcd_string(sprintf(text, "%s%d", text, count++));
+          sleep(2);
+
+}
+
+//void button_interrupt (void){
+//    GPIO_setConfig(Board_GPIO_07, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_FALLING); //  1 when pressed
+//    GPIO_setConfig(Board_GPIO_06, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_FALLING); // 0 when pressed
+//
+//    GPIO_setCallback(Board_GPIO_BUTTON0, gpioButtonFxn0);
+//
+//     /* Enable interrupts */
+//    GPIO_enableInt(Board_GPIO_BUTTON0);
+//
+//     /*
+//      *  If more than one input pin is available for your device, interrupts
+//      *  will be enabled on Board_GPIO_BUTTON1.
+//      */
+//    if (Board_GPIO_BUTTON0 != Board_GPIO_BUTTON1) {
+//         /* Configure BUTTON1 pin */
+//        GPIO_setConfig(Board_GPIO_BUTTON1, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_FALLING);
+//
+//         /* Install Button callback */
+//        GPIO_setCallback(Board_GPIO_BUTTON1, gpioButtonFxn1);
+//        GPIO_enableInt(Board_GPIO_BUTTON1);
+//     }
+//
+//}
+}
+uint8_t down_pressed(uint8_t index,uint8_t size){
+        if(index == ( size -1))
+            return 0;
+        else
+            return index +1;
+    }
+
+uint8_t up_pressed(uint8_t index, uint8_t size){
+        if(index == 0)
+            return size-1;
+        else
+            return index -1;
+    }
+
+void circular_list(void){
+  const int STRINGS = 16;
+  uint8_t text[STRINGS][16] = {"Maria","Alejandra","Marrero", "Ortiz",
+                               "Yamil", "Jose", "Gonzalez", "Zuaznabar",
+                               "Diego", "Jose","Amador", "Bonilla",
+                               "Christian", "Antonio", "Santiago", "Berio"};
+  uint8_t positions[] = {0,1};
+  GPIO_setConfig(Board_GPIO_07, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_FALLING); //LED
+  GPIO_setConfig(Board_GPIO_06, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_FALLING); // PUSHBUTTON
+
+  lcd_init_4bit();
+  lcd_init_4bit();
+  usleep(50);
+  lcd_string(text[positions[0]]);
+  usleep(50);
+  lcd_command(lcd_SetCursor|lcd_LineTwo);
+  usleep(50);
+  lcd_string(text[positions[1]]);
+
 
 while(1){
 //    //if pushdown
@@ -228,18 +270,3 @@ while(1){
 
 }
 }
-uint8_t down_pressed(uint8_t index,uint8_t size){
-        if(index == ( size -1))
-            return 0;
-        else
-            return index +1;
-    }
-
-uint8_t up_pressed(uint8_t index, uint8_t size){
-        if(index == 0)
-            return size-1;
-        else
-            return index -1;
-    }
-
-
