@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <string.h>
+#include <stdlib.h>
 
 /* Driver Header files */
 #include <ti/drivers/GPIO.h>
@@ -167,15 +168,16 @@ void test(void){
       lcd_init_4bit();
       lcd_init_4bit();
       usleep(50);
-
-      lcd_string(sprintf(text, "%s%d", text, count++));
+      ltoa(count++,text);
+      lcd_string(text);
       sleep(2);
 
 while(count<17){
 
           lcd_command(Clear);
           usleep(50);
-          lcd_string(sprintf(text, "%s%d", text, count++));
+          ltoa(count++,text);
+          lcd_string(text);
           sleep(2);
 
 }

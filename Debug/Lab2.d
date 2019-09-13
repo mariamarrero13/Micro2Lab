@@ -19,6 +19,7 @@ Lab2.obj: C:/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/../incl
 Lab2.obj: C:/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/abi_prefix.h
 Lab2.obj: C:/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/xlocale/_time.h
 Lab2.obj: C:/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/string.h
+Lab2.obj: C:/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/stdlib.h
 Lab2.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/GPIO.h
 Lab2.obj: ../Board.h
 Lab2.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/Board.h
@@ -43,6 +44,7 @@ C:/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/../include/time.h
 C:/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/abi_prefix.h: 
 C:/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/xlocale/_time.h: 
 C:/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/string.h: 
+C:/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/stdlib.h: 
 C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/GPIO.h: 
 ../Board.h: 
 C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/Board.h: 
