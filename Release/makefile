@@ -6,29 +6,28 @@ SHELL = cmd.exe
 
 CG_TOOL_ROOT := C:/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS
 
-GEN_OPTS += C:/Users/maria/micro2workspace/tirtos_builds_CC3220S_LAUNCHXL_release_ccs/Debug/configPkg/compiler.opt
-GEN_OPTS__FLAG := --cmd_file="C:/Users/maria/micro2workspace/tirtos_builds_CC3220S_LAUNCHXL_release_ccs/Debug/configPkg/compiler.opt"
-GEN_CMDS += C:/Users/maria/micro2workspace/tirtos_builds_CC3220S_LAUNCHXL_release_ccs/Debug/configPkg/linker.cmd
-GEN_CMDS__FLAG := -l"C:/Users/maria/micro2workspace/tirtos_builds_CC3220S_LAUNCHXL_release_ccs/Debug/configPkg/linker.cmd"
+GEN_OPTS__FLAG := 
+GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
 "./CC3220S_LAUNCHXL.obj" \
+"./Lab2.obj" \
 "./empty.obj" \
 "./main_tirtos.obj" \
 "../CC3220S_LAUNCHXL_TIRTOS.cmd" \
+$(GEN_CMDS__FLAG) \
 -l"ti/display/lib/display.aem4" \
 -l"ti/grlib/lib/ccs/m4/grlib.a" \
 -l"third_party/spiffs/lib/ccs/m4/spiffs.a" \
 -l"ti/drivers/lib/drivers_cc32xx.aem4" \
 -l"third_party/fatfs/lib/ccs/m4/fatfs.a" \
 -l"ti/dpl/lib/dpl_cc32xx.aem4" \
-$(GEN_CMDS__FLAG) \
 -l"ti/devices/cc32xx/driverlib/ccs/Release/driverlib.a" \
 -llibc.a \
 
 -include ../makefile.init
 
-RM := DEL /F
+RM := 
 RMDIR := RMDIR /S/Q
 
 # All of the sources participating in the build are defined here
@@ -147,14 +146,11 @@ BIN_OUTPUTS__QUOTED += \
 all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@$(MAKE) --no-print-directory -Onone "empty_CC3220S_LAUNCHXL_tirtos_ccs.out"
 
-dependents:
-	-cd C:/Users/maria/micro2workspace/tirtos_builds_CC3220S_LAUNCHXL_release_ccs/Debug && $(MAKE) clean all
-
 # Tool invocations
-empty_CC3220S_LAUNCHXL_tirtos_ccs.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS) C:/Users/maria/micro2workspace/tirtos_builds_CC3220S_LAUNCHXL_release_ccs/Debug/tirtos_builds_CC3220S_LAUNCHXL_release_ccs.lib
+empty_CC3220S_LAUNCHXL_tirtos_ccs.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: ARM Linker'
-	"C:/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=vfplib -me -O2 -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on -z -m"empty_CC3220S_LAUNCHXL_tirtos_ccs.map" -i"C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source" -i"C:/ti/simplelink_cc32xx_sdk_3_20_00_06/kernel/tirtos/packages" -i"C:/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/lib" --diag_wrap=off --display_error_number --warn_sections --xml_link_info="empty_CC3220S_LAUNCHXL_tirtos_ccs_linkInfo.xml" --rom_model -o "empty_CC3220S_LAUNCHXL_tirtos_ccs.out" $(ORDERED_OBJS)
+	"" -mv7M4 --code_state=16 --float_support=vfplib -me -O2 -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on -z -m"empty_CC3220S_LAUNCHXL_tirtos_ccs.map" -i"/source" -i"/kernel/tirtos/packages" -i"/lib" --diag_wrap=off --display_error_number --warn_sections --xml_link_info="empty_CC3220S_LAUNCHXL_tirtos_ccs_linkInfo.xml" --rom_model -o "empty_CC3220S_LAUNCHXL_tirtos_ccs.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 	@$(MAKE) --no-print-directory post-build
@@ -162,7 +158,7 @@ empty_CC3220S_LAUNCHXL_tirtos_ccs.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS) C:/Users/
 empty_CC3220S_LAUNCHXL_tirtos_ccs.bin: $(EXE_OUTPUTS)
 	@echo 'Building files: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo 'Invoking: ARM Hex Utility'
-	"C:/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armhex"  -o "empty_CC3220S_LAUNCHXL_tirtos_ccs.bin" $(EXE_OUTPUTS__QUOTED)
+	""  -o "empty_CC3220S_LAUNCHXL_tirtos_ccs.bin" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo ' '
 	@$(MAKE) --no-print-directory post-build
@@ -170,18 +166,17 @@ empty_CC3220S_LAUNCHXL_tirtos_ccs.bin: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "CC3220S_LAUNCHXL.obj" "empty.obj" "main_tirtos.obj" 
-	-$(RM) "CC3220S_LAUNCHXL.d" "empty.d" "main_tirtos.d" 
+	-$(RM) "CC3220S_LAUNCHXL.obj" "Lab2.obj" "empty.obj" "main_tirtos.obj" 
+	-$(RM) "CC3220S_LAUNCHXL.d" "Lab2.d" "empty.d" "main_tirtos.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
 post-build:
-	-C:/ti/ccs910/ccs/utils/tiobj2bin/tiobj2bin empty_CC3220S_LAUNCHXL_tirtos_ccs.out empty_CC3220S_LAUNCHXL_tirtos_ccs.bin C:/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armofd C:/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/bin/armhex C:/ti/ccs910/ccs/utils/tiobj2bin/mkhex4bin
+	-/utils/tiobj2bin/tiobj2bin empty_CC3220S_LAUNCHXL_tirtos_ccs.out empty_CC3220S_LAUNCHXL_tirtos_ccs.bin /bin/armofd /bin/armhex /utils/tiobj2bin/mkhex4bin
 	-@echo ' '
 
 .PHONY: all clean dependents
 .SECONDARY:
-C:/Users/maria/micro2workspace/tirtos_builds_CC3220S_LAUNCHXL_release_ccs/Debug/tirtos_builds_CC3220S_LAUNCHXL_release_ccs.lib:
 
 -include ../makefile.targets
 

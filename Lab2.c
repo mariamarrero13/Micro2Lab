@@ -74,13 +74,11 @@ void lcd_init_4bit(void)
     GPIO_setConfig(Board_GPIO_17, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D6    p08
     GPIO_setConfig(Board_GPIO_16, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D5    p07
     GPIO_setConfig(Board_GPIO_15, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D4    p06
-
     GPIO_setConfig(Board_GPIO_22, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //E    p15
     GPIO_setConfig(Board_GPIO_25, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //RS    p21
 
 // Power-up delay
-    GPIO_write(Board_GPIO_22,GPIO_OFF);
-    sleep(0.015);
+    usleep(40000);
 
 //Initialization
     lcd_byte(FunctionReset);
@@ -157,6 +155,7 @@ void lcd_byte(uint8_t byte)
     usleep(.50);
     GPIO_write(Board_GPIO_22,GPIO_OFF);
     usleep (.50);
+
 
 }
 
@@ -239,6 +238,7 @@ void circular_list(void){
   usleep(50);
   lcd_string(text[positions[1]]);
 
+
 while(1){
 //    //if pushdown
       if(GPIO_read(Board_GPIO_07) == 1){          //button down pressed --CHANGE GPIO
@@ -257,7 +257,6 @@ while(1){
       }
       if(GPIO_read(Board_GPIO_06) == 0){          //button up pressed -CHANGE GPIO
           lcd_command(Clear);
-          lcd_command(lcd_Home);
           usleep(50);
           int oldpos = positions[0];
           positions[0] = up_pressed(oldpos,STRINGS);
