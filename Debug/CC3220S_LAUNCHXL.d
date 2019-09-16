@@ -44,14 +44,6 @@ CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/d
 CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/dma/UDMACC32XX.h
 CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/GPIO.h
 CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/gpio/GPIOCC32XX.h
-CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/display/Display.h
-CC3220S_LAUNCHXL.obj: C:/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/stdarg.h
-CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/display/DisplayUart.h
-CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/UART.h
-CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/display/DisplaySharp.h
-CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/SPI.h
-CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/grlib/grlib.h
-CC3220S_LAUNCHXL.obj: C:/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/assert.h
 CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/I2C.h
 CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/i2c/I2CCC32XX.h
 CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/I2S.h
@@ -65,9 +57,11 @@ CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/third_party/
 CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/third_party/fatfs/ffconf.h
 CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/third_party/fatfs/diskio.h
 CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/sd/SDHostCC32XX.h
+CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/SPI.h
 CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/spi/SPICC32XXDMA.h
 CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/Timer.h
 CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/timer/TimerCC32XX.h
+CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/UART.h
 CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/uart/UARTCC32XX.h
 CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/dpl/ClockP.h
 CC3220S_LAUNCHXL.obj: C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/utils/RingBuf.h
@@ -118,14 +112,6 @@ C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/dpl/SemaphoreP.h:
 C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/dma/UDMACC32XX.h: 
 C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/GPIO.h: 
 C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/gpio/GPIOCC32XX.h: 
-C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/display/Display.h: 
-C:/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/stdarg.h: 
-C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/display/DisplayUart.h: 
-C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/UART.h: 
-C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/display/DisplaySharp.h: 
-C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/SPI.h: 
-C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/grlib/grlib.h: 
-C:/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.2.LTS/include/assert.h: 
 C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/I2C.h: 
 C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/i2c/I2CCC32XX.h: 
 C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/I2S.h: 
@@ -139,9 +125,11 @@ C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/third_party/fatfs/integer.h:
 C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/third_party/fatfs/ffconf.h: 
 C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/third_party/fatfs/diskio.h: 
 C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/sd/SDHostCC32XX.h: 
+C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/SPI.h: 
 C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/spi/SPICC32XXDMA.h: 
 C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/Timer.h: 
 C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/timer/TimerCC32XX.h: 
+C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/UART.h: 
 C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/uart/UARTCC32XX.h: 
 C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/dpl/ClockP.h: 
 C:/ti/simplelink_cc32xx_sdk_3_20_00_06/source/ti/drivers/utils/RingBuf.h: 

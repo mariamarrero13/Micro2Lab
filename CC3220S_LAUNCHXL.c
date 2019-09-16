@@ -227,8 +227,12 @@ GPIO_PinConfig gpioPinConfigs[] = {
     /* input pins with callbacks */
     /* CC3220S_LAUNCHXL_GPIO_SW2 */
     GPIOCC32XX_GPIO_13 | GPIO_CFG_INPUT | GPIO_CFG_IN_INT_RISING,
-
-    GPIOCC32XX_GPIO_07 | GPIO_CFG_INPUT | GPIO_CFG_IN_INT_RISING,
+    /* Push Button */
+    GPIOCC32XX_GPIO_24 | GPIO_CFG_INPUT | GPIO_CFG_IN_INT_RISING,
+    /* KEYPAD COLUMNS*/
+    GPIOCC32XX_GPIO_13 | GPIO_CFG_INPUT | GPIO_CFG_IN_INT_FALLING,
+    GPIOCC32XX_GPIO_06 | GPIO_CFG_INPUT | GPIO_CFG_IN_INT_FALLING,
+    GPIOCC32XX_GPIO_07 | GPIO_CFG_INPUT | GPIO_CFG_IN_INT_FALLING,
     /* CC3220S_LAUNCHXL_GPIO_SW3 */
 //    GPIOCC32XX_GPIO_22 | GPIO_CFG_INPUT | GPIO_CFG_IN_INT_RISING,
 
@@ -246,14 +250,16 @@ GPIO_PinConfig gpioPinConfigs[] = {
     /* LCD Data pin out */
     GPIOCC32XX_GPIO_28 | GPIO_CFG_OUT_STD | GPIO_CFG_OUT_STR_HIGH | GPIO_CFG_OUT_LOW,
     GPIOCC32XX_GPIO_17 | GPIO_CFG_OUT_STD | GPIO_CFG_OUT_STR_HIGH | GPIO_CFG_OUT_LOW,
-    GPIOCC32XX_GPIO_30 | GPIO_CFG_OUT_STD | GPIO_CFG_OUT_STR_HIGH | GPIO_CFG_OUT_LOW,
     GPIOCC32XX_GPIO_16 | GPIO_CFG_OUT_STD | GPIO_CFG_OUT_STR_HIGH | GPIO_CFG_OUT_LOW,
     GPIOCC32XX_GPIO_15 | GPIO_CFG_OUT_STD | GPIO_CFG_OUT_STR_HIGH | GPIO_CFG_OUT_LOW,
-    GPIOCC32XX_GPIO_25 | GPIO_CFG_OUT_STD | GPIO_CFG_OUT_STR_HIGH | GPIO_CFG_OUT_LOW,
-    GPIOCC32XX_GPIO_00 | GPIO_CFG_OUT_STD | GPIO_CFG_OUT_STR_HIGH | GPIO_CFG_OUT_LOW,
     GPIOCC32XX_GPIO_22 | GPIO_CFG_OUT_STD | GPIO_CFG_OUT_STR_HIGH | GPIO_CFG_OUT_LOW,
+    GPIOCC32XX_GPIO_25 | GPIO_CFG_OUT_STD | GPIO_CFG_OUT_STR_HIGH | GPIO_CFG_OUT_LOW,
+
+    /*KEYPAD ROWS*/
     GPIOCC32XX_GPIO_08 | GPIO_CFG_OUT_STD | GPIO_CFG_OUT_STR_HIGH | GPIO_CFG_OUT_LOW,
+    GPIOCC32XX_GPIO_30 | GPIO_CFG_OUT_STD | GPIO_CFG_OUT_STR_HIGH | GPIO_CFG_OUT_LOW,
     GPIOCC32XX_GPIO_09 | GPIO_CFG_OUT_STD | GPIO_CFG_OUT_STR_HIGH | GPIO_CFG_OUT_LOW,
+    GPIOCC32XX_GPIO_00 | GPIO_CFG_OUT_STD | GPIO_CFG_OUT_STR_HIGH | GPIO_CFG_OUT_LOW,
 
 
     /*
@@ -268,10 +274,7 @@ GPIO_PinConfig gpioPinConfigs[] = {
 
     GPIOCC32XX_GPIO_30 | GPIO_DO_NOT_CONFIG, /* TMP116 EN */
 
-    /* Sharp Display - GPIO configurations will be done in the Display files */
-    GPIOCC32XX_GPIO_12 | GPIO_DO_NOT_CONFIG, /* SPI chip select */
-    GPIOCC32XX_GPIO_06 | GPIO_DO_NOT_CONFIG, /* LCD power control */
-    GPIOCC32XX_GPIO_03 | GPIO_DO_NOT_CONFIG, /*LCD enable */
+
 };
 
 /*
@@ -296,72 +299,6 @@ const GPIOCC32XX_Config GPIOCC32XX_config = {
     .numberOfCallbacks = sizeof(gpioCallbackFunctions)/sizeof(GPIO_CallbackFxn),
     .intPriority = (~0)
 };
-
-/*
- *  ============================= Display =============================
- */
-#include <ti/display/Display.h>
-#include <ti/display/DisplayUart.h>
-#include <ti/display/DisplaySharp.h>
-#define MAXPRINTLEN 1024
-
-/* This value can be changed to 96 for use with the 430BOOST-SHARP96 BoosterPack. */
-#define BOARD_DISPLAY_SHARP_SIZE    128
-
-DisplayUart_Object displayUartObject;
-DisplaySharp_Object displaySharpObject;
-
-static char displayBuf[MAXPRINTLEN];
-static uint_least8_t sharpDisplayBuf[BOARD_DISPLAY_SHARP_SIZE * BOARD_DISPLAY_SHARP_SIZE / 8];
-
-const DisplayUart_HWAttrs displayUartHWAttrs = {
-    .uartIdx = 0,
-    .baudRate = 115200,
-    .mutexTimeout = (unsigned int)(-1),
-    .strBuf = displayBuf,
-    .strBufLen = MAXPRINTLEN
-};
-
-const DisplaySharp_HWAttrsV1 displaySharpHWattrs = {
-    .spiIndex    = CC3220S_LAUNCHXL_SPI1,
-    .csPin       = CC3220S_LAUNCHXL_LCD_CS,
-    .powerPin    = CC3220S_LAUNCHXL_LCD_POWER,
-    .enablePin   = CC3220S_LAUNCHXL_LCD_ENABLE,
-    .pixelWidth  = BOARD_DISPLAY_SHARP_SIZE,
-    .pixelHeight = BOARD_DISPLAY_SHARP_SIZE,
-    .displayBuf  = sharpDisplayBuf,
-};
-
-#ifndef BOARD_DISPLAY_USE_UART
-#define BOARD_DISPLAY_USE_UART 1
-#endif
-#ifndef BOARD_DISPLAY_USE_UART_ANSI
-#define BOARD_DISPLAY_USE_UART_ANSI 0
-#endif
-#ifndef BOARD_DISPLAY_USE_LCD
-#define BOARD_DISPLAY_USE_LCD 0
-#endif
-
-const Display_Config Display_config[] = {
-    {
-#  if (BOARD_DISPLAY_USE_UART_ANSI)
-        .fxnTablePtr = &DisplayUartAnsi_fxnTable,
-#  else /* Default to minimal UART with no cursor placement */
-        .fxnTablePtr = &DisplayUartMin_fxnTable,
-#  endif
-        .object = &displayUartObject,
-        .hwAttrs = &displayUartHWAttrs
-    },
-#if (BOARD_DISPLAY_USE_LCD)
-    {
-        .fxnTablePtr = &DisplaySharp_fxnTable,
-        .object      = &displaySharpObject,
-        .hwAttrs     = &displaySharpHWattrs
-    },
-#endif
-};
-
-const uint_least8_t Display_count = sizeof(Display_config) / sizeof(Display_Config);
 
 /*
  *  =============================== I2C ===============================

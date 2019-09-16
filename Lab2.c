@@ -1,4 +1,3 @@
-
 /* For usleep() */
 #include <unistd.h>
 #include <stdint.h>
@@ -30,26 +29,116 @@
 
 
 // Function Prototypes
-void test (void);
 void button_interrupt (void);
-void circular_list(void);
-uint8_t down_pressed(uint8_t, uint8_t);
-uint8_t up_pressed(uint8_t, uint8_t);
+void software_debouncing(void);
+void keypad(void);
 void lcd_byte(uint8_t);
 void lcd_command(uint8_t);
 void lcd_character(uint8_t);
 void lcd_string(uint8_t *);
 void lcd_init_4bit(void);
+void gpio_on(void);
+void gpio_of(void);
 
 uint8_t count = 0;
 uint8_t flag = -1;
 uint8_t text[] = "base string";
 
 
-void btn_interrupt(uint8_t index)
-{
-    count= count +1;
 
+void keypadint(uint_least8_t index)
+{
+    {
+        GPIO_write(Board_GPIO_ROW1,GPIO_ON);
+        GPIO_write(Board_GPIO_ROW2,GPIO_OFF);
+        GPIO_write(Board_GPIO_ROW3,GPIO_OFF);
+        GPIO_write(Board_GPIO_ROW4,GPIO_OFF);
+        if(GPIO_read(Board_GPIO_COL1) == 1) {
+            ltoa(1,text);
+            lcd_string(text);
+        }
+        if(GPIO_read(Board_GPIO_COL2) == 1) {
+            ltoa(2,text);
+            lcd_string(text);
+        }
+        if(GPIO_read(Board_GPIO_COL3) == 1) {
+            ltoa(3,text);
+            lcd_string(text);
+        }
+    }
+    {
+        GPIO_write(Board_GPIO_ROW1,GPIO_OFF);
+        GPIO_write(Board_GPIO_ROW2,GPIO_ON);
+        GPIO_write(Board_GPIO_ROW3,GPIO_OFF);
+        GPIO_write(Board_GPIO_ROW4,GPIO_OFF);
+        if(GPIO_read(Board_GPIO_COL1) == 1) {
+            ltoa(4,text);
+            lcd_string(text);
+        }
+        if(GPIO_read(Board_GPIO_COL2) == 1) {
+            ltoa(5,text);
+            lcd_string(text);
+        }
+        if(GPIO_read(Board_GPIO_COL3) == 1) {
+            ltoa(6,text);
+            lcd_string(text);
+        }
+    }
+    {
+        GPIO_write(Board_GPIO_ROW1,GPIO_OFF);
+        GPIO_write(Board_GPIO_ROW2,GPIO_OFF);
+        GPIO_write(Board_GPIO_ROW3,GPIO_ON);
+        GPIO_write(Board_GPIO_ROW4,GPIO_OFF);
+        if(GPIO_read(Board_GPIO_COL1) == 1) {
+            ltoa(7,text);
+            lcd_string(text);
+        }
+        if(GPIO_read(Board_GPIO_COL2) == 1) {
+            ltoa(8,text);
+            lcd_string(text);
+        }
+        if(GPIO_read(Board_GPIO_COL3) == 1) {
+            ltoa(9,text);
+            lcd_string(text);
+        }
+        {
+            GPIO_write(Board_GPIO_ROW1,GPIO_OFF);
+            GPIO_write(Board_GPIO_ROW2,GPIO_OFF);
+            GPIO_write(Board_GPIO_ROW3,GPIO_OFF);
+            GPIO_write(Board_GPIO_ROW4,GPIO_ON);
+            if(GPIO_read(Board_GPIO_COL1) == 1) {
+                lcd_command(Clear);
+            }
+            if(GPIO_read(Board_GPIO_COL2) == 1) {
+                ltoa(0,text);
+                lcd_string(text);
+            }
+            if(GPIO_read(Board_GPIO_COL3) == 1) {
+                lcd_command(Clear);
+            }
+        }
+
+
+        GPIO_write(Board_GPIO_ROW1,GPIO_ON);
+        GPIO_write(Board_GPIO_ROW2,GPIO_ON);
+        GPIO_write(Board_GPIO_ROW3,GPIO_ON);
+        GPIO_write(Board_GPIO_ROW4,GPIO_ON);
+    }
+}
+
+
+
+void btn_interrupt(uint_least8_t index)
+{
+    if(GPIO_read(index) ==1)
+        count++;
+}
+
+void btn_interrupt2(uint_least8_t index)
+{
+    GPIO_clearInt(index);
+    if(GPIO_read(index) ==1)
+        flag =1;
 }
 
 /*
@@ -57,26 +146,10 @@ void btn_interrupt(uint8_t index)
  */
 void *mainThread(void *arg0)
 {
-    /* Call driver init functions */
+    //button_interrupt ();
+    // software_debouncing();
+    keypad();
 
-    GPIO_init();
-    GPIO_setConfig(Board_GPIO_07, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_RISING); //  1 when pressed
-    lcd_init_4bit();
-    lcd_init_4bit();
-
-    GPIO_setCallback(Board_GPIO_07, btn_interrupt);
-    GPIO_enableInt(Board_GPIO_07);
-    while(1){
-        if(flag != count){
-
-            lcd_command(Clear);
-            usleep(50);
-            ltoa(count,text);
-            lcd_string(text);
-            usleep(30000);
-            flag = count;
-        }
-    }
 }
 
 void lcd_init_4bit(void)
@@ -86,7 +159,7 @@ void lcd_init_4bit(void)
     GPIO_setConfig(Board_GPIO_17, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D6    p08
     GPIO_setConfig(Board_GPIO_16, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D5    p07
     GPIO_setConfig(Board_GPIO_15, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D4    p06
-    GPIO_setConfig(Board_GPIO_22, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //E    p15
+    GPIO_setConfig(Board_GPIO_22, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //E     p15
     GPIO_setConfig(Board_GPIO_25, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //RS    p21
 
     // Power-up delay
@@ -160,6 +233,74 @@ void lcd_byte(uint8_t byte)
     GPIO_write(Board_GPIO_22,GPIO_OFF);
     usleep (.50);
 }
+
+void button_interrupt (void){
+
+    GPIO_init();
+    GPIO_setConfig(Board_GPIO_24, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_RISING); //  1 when pressed
+
+    lcd_init_4bit();
+    lcd_init_4bit();
+
+    GPIO_setCallback(Board_GPIO_24, btn_interrupt);
+    GPIO_enableInt(Board_GPIO_24);
+    while(1){
+        if(flag != count){
+            lcd_command(Clear);
+            usleep(50);
+            ltoa(count,text);
+            lcd_string(text);
+            flag = count;
+        }
+    }
+}
+
+void software_debouncing(void)
+{
+    GPIO_init();
+    GPIO_setConfig(Board_GPIO_24, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_RISING); //  1 when pressed
+    lcd_init_4bit();
+    lcd_init_4bit();
+
+    GPIO_setCallback(Board_GPIO_24, btn_interrupt2);
+    GPIO_enableInt(Board_GPIO_24);
+    while(1){
+        if(flag != 0){
+            usleep(105000);
+            lcd_command(Clear);
+            usleep(50);
+            ltoa(count++,text);
+            lcd_string(text);
+            flag=0;
+        }
+    }
+}
+void keypad(void){
+    GPIO_init();
+    GPIO_setConfig(Board_GPIO_COL1, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_RISING);
+    GPIO_setConfig(Board_GPIO_COL2, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_RISING);
+    GPIO_setConfig(Board_GPIO_COL3, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_RISING);
+    GPIO_setConfig(Board_GPIO_ROW1, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_HIGH);
+    GPIO_setConfig(Board_GPIO_ROW2, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_HIGH);
+    GPIO_setConfig(Board_GPIO_ROW3, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_HIGH);
+    GPIO_setConfig(Board_GPIO_ROW4, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_HIGH);
+
+    lcd_init_4bit();
+    lcd_init_4bit();
+
+    GPIO_setCallback(Board_GPIO_COL1, keypadint);
+    GPIO_setCallback(Board_GPIO_COL2, keypadint);
+    GPIO_setCallback(Board_GPIO_COL3, keypadint);
+    GPIO_enableInt(Board_GPIO_COL1);
+    GPIO_enableInt(Board_GPIO_COL2);
+    GPIO_enableInt(Board_GPIO_COL3);
+
+}
+
+
+
+
+
 
 
 
