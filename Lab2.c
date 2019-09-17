@@ -47,7 +47,7 @@ uint8_t up_pressed(uint8_t, uint8_t);
 
 
 uint8_t count = 0;
-uint8_t flag = -1;
+uint8_t flag = 1;
 uint8_t text[] = "base string";
 uint8_t cursor = 0;
 uint8_t olda = 0;
@@ -113,15 +113,12 @@ void opto_int(uint_least8_t index)
 {
     olda= newa;
     oldb= newb;
-    if(GPIO_read(Board_GPIO_COL2) == 0) newa =1;
-    else newa = 0;
-    if(GPIO_read(Board_GPIO_COL3) == 0) newb =1;
-    else newb =0;
+    newa =GPIO_read(Board_GPIO_COL2);
+    newb =GPIO_read(Board_GPIO_COL3);
 
     flag = olda<<3|oldb<<2|newa<<1|newb<<0;
     lookup_index = flag;
-    printf("%d \n", lookup_index);
-
+    printf("new a %d \n new b %d \n index %d \n", newa, newb, lookup_index);
 }
 
 /*
@@ -387,7 +384,7 @@ void complimentary_task(void)
             lookup_index =0;
 
         }
-        if(lookup_table[lookup_index] == 1){          //moved backward
+        if(lookup_table[lookup_index] == 2){          //moved backward
             lcd_command(Clear);
             usleep(50);
             int oldpos = positions[0];
