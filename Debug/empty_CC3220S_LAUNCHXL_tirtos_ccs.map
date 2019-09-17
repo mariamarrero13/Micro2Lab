@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker PC v18.12.2                    
 ******************************************************************************
->> Linked Tue Sep 17 15:12:48 2019
+>> Linked Tue Sep 17 17:08:04 2019
 
 OUTPUT FILE NAME:   <empty_CC3220S_LAUNCHXL_tirtos_ccs.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 200114f1

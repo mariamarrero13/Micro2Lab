@@ -99,7 +99,6 @@ void keypadint(uint_least8_t index)
 
 void btn_interrupt(uint_least8_t index)
 {
-    if(GPIO_read(index) ==1)
         count++;
 }
 
@@ -126,7 +125,7 @@ void opto_int(uint_least8_t index)
  */
 void *mainThread(void *arg0)
 {
-    //button_interrupt ();
+   // button_interrupt ();
     //software_debouncing();
     //keypad();
     complimentary_task();
@@ -167,6 +166,7 @@ void lcd_init_4bit(void)
 
     lcd_command(Display_on);
     usleep(50);
+
 
 
 }
@@ -324,15 +324,18 @@ void decode_stroke(uint_least8_t index){
         GPIO_write(Board_GPIO_ROW2,GPIO_OFF);
         GPIO_write(Board_GPIO_ROW3,GPIO_OFF);
         GPIO_write(Board_GPIO_ROW4,GPIO_ON);
-        if(GPIO_read(Board_GPIO_COL1) == 1) lcd_command(Clear);
+        if(GPIO_read(Board_GPIO_COL1) == 1) {
+            lcd_command(Clear);
+            cursor =0;
+        }
         if(GPIO_read(Board_GPIO_COL2) == 1) key_write(0);
-        if(GPIO_read(Board_GPIO_COL3) == 1) lcd_command(Clear);
+        if(GPIO_read(Board_GPIO_COL3) == 1) toggle_cursor();;
     }
 }
 
 void toggle_cursor(void)
 {
-    if(cursor =1) {
+    if(cursor ==1) {
         lcd_command(lcd_SetCursor|lcd_LineOne);
         cursor =0;
     }
