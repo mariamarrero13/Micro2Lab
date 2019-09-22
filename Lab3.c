@@ -43,7 +43,5 @@ void timer_by_polling(void){
 
         if (poll ==0)
             GPIO_write(Board_GPIO_24, GPIO_ON);
-
-
     }
 }
