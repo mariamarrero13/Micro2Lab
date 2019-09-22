@@ -44,7 +44,7 @@ void lcd_init(void);
 /*
  *  ======== mainThread ========
  */
-void *mainThread(void *arg0)
+void *mainThread1(void *arg0)
 {
     /* Call driver init functions */
     GPIO_init();

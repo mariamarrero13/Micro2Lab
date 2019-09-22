@@ -123,7 +123,7 @@ void opto_int(uint_least8_t index)
 /*
  *  ======== mainThread ========
  */
-void *mainThread(void *arg0)
+void *mainThread2(void *arg0)
 {
    // button_interrupt ();
     //software_debouncing();

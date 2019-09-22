@@ -13,7 +13,8 @@ GEN_CMDS__FLAG := -l"C:/Users/maria/micro2workspace/tirtos_builds_CC3220S_LAUNCH
 
 ORDERED_OBJS += \
 "./CC3220S_LAUNCHXL.obj" \
-"./Lab2.obj" \
+"./Lab3.obj" \
+"./lcd.obj" \
 "./main_tirtos.obj" \
 "../CC3220S_LAUNCHXL_TIRTOS.cmd" \
 -l"ti/display/lib/display.aem4" \
@@ -170,8 +171,8 @@ empty_CC3220S_LAUNCHXL_tirtos_ccs.bin: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "CC3220S_LAUNCHXL.obj" "Lab2.obj" "main_tirtos.obj" 
-	-$(RM) "CC3220S_LAUNCHXL.d" "Lab2.d" "main_tirtos.d" 
+	-$(RM) "CC3220S_LAUNCHXL.obj" "Lab3.obj" "lcd.obj" "main_tirtos.obj" 
+	-$(RM) "CC3220S_LAUNCHXL.d" "Lab3.d" "lcd.d" "main_tirtos.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
