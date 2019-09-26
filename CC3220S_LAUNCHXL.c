@@ -225,6 +225,8 @@ void Board_init(void)
  */
 GPIO_PinConfig gpioPinConfigs[] = {
     /* input pins with callbacks */
+    /* CC3220S_LAUNCHXL_GPIO_SW2 */
+    GPIOCC32XX_GPIO_13 | GPIO_CFG_INPUT | GPIO_CFG_IN_INT_RISING,
     /* Push Button */
     GPIOCC32XX_GPIO_07 | GPIO_CFG_INPUT | GPIO_CFG_IN_INT_RISING, //change to 24
     /* KEYPAD COLUMNS*/
