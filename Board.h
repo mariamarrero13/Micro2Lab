@@ -59,7 +59,6 @@ extern "C" {
 
 #define Board_GPIO_LED_ON            CC3220S_LAUNCHXL_GPIO_LED_ON
 #define Board_GPIO_LED_OFF           CC3220S_LAUNCHXL_GPIO_LED_OFF
-#define Board_GPIO_LED0              CC3220S_LAUNCHXL_GPIO_LED_D10
 #define Board_GPIO_24                CC3220S_LAUNCHXL_GPIO_PB1
 #define Board_GPIO_COL1              CC3220S_LAUNCHXL_GPIO_COL1
 #define Board_GPIO_COL2              CC3220S_LAUNCHXL_GPIO_COL2
@@ -72,11 +71,24 @@ extern "C" {
 #define Board_GPIO_16                CC3220S_LAUNCHXL_GPIO_D5
 #define Board_GPIO_15                CC3220S_LAUNCHXL_GPIO_D4
 #define Board_GPIO_22                CC3220S_LAUNCHXL_GPIO_RS
-#define Board_GPIO_25                CC3220S_LAUNCHXL_GPIO_E
+#define Board_GPIO_25                CC3220S_LAUNCHXL_GPIO_EN
 #define Board_GPIO_ROW1              CC3220S_LAUNCHXL_GPIO_ROW1
 #define Board_GPIO_ROW2              CC3220S_LAUNCHXL_GPIO_ROW2
 #define Board_GPIO_ROW3              CC3220S_LAUNCHXL_GPIO_ROW3
 #define Board_GPIO_ROW4              CC3220S_LAUNCHXL_GPIO_ROW4
+
+/*SEVEN SEGMENT*/
+#define Board_GPIO_A              CC3220S_LAUNCHXL_GPIO_A
+#define Board_GPIO_B              CC3220S_LAUNCHXL_GPIO_B
+#define Board_GPIO_C              CC3220S_LAUNCHXL_GPIO_C
+#define Board_GPIO_D              CC3220S_LAUNCHXL_GPIO_D
+#define Board_GPIO_E              CC3220S_LAUNCHXL_GPIO_E
+#define Board_GPIO_F              CC3220S_LAUNCHXL_GPIO_F
+#define Board_GPIO_G              CC3220S_LAUNCHXL_GPIO_G
+
+/*Transistors*/
+#define Board_GPIO_7S1            CC3220S_LAUNCHXL_GPIO_7S1
+#define Board_GPIO_7S2            CC3220S_LAUNCHXL_GPIO_7S2
 
 /*
  *  CC3220S_LAUNCHXL_GPIO_LED_D8 and CC3220S_LAUNCHXL_GPIO_LED_D9 are shared with the I2C
