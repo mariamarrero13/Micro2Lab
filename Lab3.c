@@ -3,82 +3,44 @@
 #include <stddef.h>
 #include <string.h>
 #include <stdlib.h>
-
-/* Driver Header files */
 #include <ti/drivers/GPIO.h>
 #include <ti/drivers/Timer.h>
-
-/* Board Header file */
 #include "Board.h"
 #include "lcd.h"
-void buzzer_toggle(Timer_Handle myHandle);
-void board_button(uint_least8_t index);
+
 void timer_by_polling(void);
 void timer_by_interrupts(void);
 void seven_segment(void);
+void complimentary_task(void);
 void init_timer(int period, Timer_Mode mode, Timer_PeriodUnits units, Timer_CallBackFxn callback);
 void led_byte(uint8_t byte);
 void singleLED(void);
 void multipleLED(void);
-void refreshLED(Timer_Handle myHandle);
+uint8_t down_pressed(uint8_t, uint8_t);
+uint8_t up_pressed(uint8_t, uint8_t);
 
+
+/*
+ * Global Vars
+ */
 int i0 = 0;
 int i = 0;
-uint8_t numbers[] = {0xC0, 0xF9, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xF8, 0x80, 0x98, 0x88, 0x80, 0xC6, 0xC0, 0x86, 0x8E};
-//uint8_t numbers[] = {0xBF, 0x86, 0xDB, 0xCF, 0xE6, 0xED, 0xFD, 0x87, 0xFF, 0xE7, 0xF7, 0xFF, 0xB9, 0xBF, 0xF9, 0xF1};
 int flag =0;
 int period = 500;
 Timer_Handle timer;
-void *mainThread(void *arg0)
-{
-    GPIO_init();
-    Timer_init();
+uint8_t numbers[] = {0xC0, 0xF9, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xF8, 0x80, 0x98, 0x88, 0x80, 0xC6, 0xC0, 0x86, 0x8E};
 
-    //   timer_by_polling();
-    //    timer_by_interrupts();
-    seven_segment();
-    //    lcd_init_4bit(Board_GPIO_28,Board_GPIO_17,Board_GPIO_16,Board_GPIO_15,Board_GPIO_22,Board_GPIO_25);
-    //    lcd_init_4bit(Board_GPIO_28,Board_GPIO_17,Board_GPIO_16,Board_GPIO_15,Board_GPIO_22,Board_GPIO_25);
-}
-
-void timer_by_polling(void)
-{
-    GPIO_setConfig(Board_GPIO_24, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
-    init_timer(2000,Timer_FREE_RUNNING,Timer_PERIOD_COUNTS, NULL);
-
-    while (1){
-        if (Timer_getCount(timer) == 0){
-            GPIO_toggle(Board_GPIO_24);
-        }
-    }
-}
-
-void timer_by_interrupts(void)
-{
-    GPIO_setConfig(Board_GPIO_BUTTON0, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_FALLING);
-    GPIO_setCallback(Board_GPIO_BUTTON0, board_button);
-    GPIO_enableInt(Board_GPIO_BUTTON0);
-    GPIO_setConfig(Board_GPIO_24, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
-    init_timer(period,Timer_CONTINUOUS_CALLBACK,Timer_PERIOD_US, buzzer_toggle);
-
-    while(1)
-    {
-        sleep(1);
-        flag=0;
-    }
-}
-
-void init_timer(int period, Timer_Mode mode, Timer_PeriodUnits units, Timer_CallBackFxn callback){
-    Timer_Params params;
-    Timer_Params_init(&params);
-    params.period = period;
-    params.periodUnits = units;
-    params.timerMode = mode;
-    params.timerCallback = callback;
-    timer = Timer_open(Board_TIMER0, &params);
-    Timer_start(timer);
-}
-
+uint8_t count = 0;
+uint8_t text[] = "base string";
+uint8_t cursor = 0;
+uint8_t olda = 0;
+uint8_t oldb = 0;
+uint8_t newa = 0;
+uint8_t newb = 0;
+uint8_t lookup_index =0;
+/*
+ * Interrupts
+ */
 void buzzer_toggle(Timer_Handle myHandle)
 {
     GPIO_toggle(Board_GPIO_24);
@@ -118,6 +80,85 @@ void board_button(uint_least8_t index)
     }
 }
 
+
+void refreshLED(Timer_Handle myHandle){
+    flag++;
+    if(flag == 100){
+        i0++;
+        if(i0 == sizeof(numbers)){
+            i0 = 0;
+            i++;
+            if(i == sizeof(numbers))   i = 0;
+        }
+        flag =0;
+    }
+}
+void opto_int(uint_least8_t index)
+{
+    olda= newa;
+    oldb= newb;
+    newa =GPIO_read(Board_GPIO_COL2);
+    newb =GPIO_read(Board_GPIO_COL3);
+
+    flag = olda<<3|oldb<<2|newa<<1|newb<<0;
+    lookup_index = flag;
+    printf("new a %d \n new b %d \n index %d \n", newa, newb, lookup_index);
+}
+
+
+/*
+ * MAIN
+ */
+void *mainThread(void *arg0)
+{
+    GPIO_init();
+    Timer_init();
+
+//    timer_by_polling();
+//    timer_by_interrupts();
+//    seven_segment();
+    complimentary_task();
+//    lcd_init_4bit(Board_GPIO_28,Board_GPIO_17,Board_GPIO_16,Board_GPIO_15,Board_GPIO_22,Board_GPIO_25);
+//    lcd_init_4bit(Board_GPIO_28,Board_GPIO_17,Board_GPIO_16,Board_GPIO_15,Board_GPIO_22,Board_GPIO_25);
+}
+
+void timer_by_polling(void)
+{
+    GPIO_setConfig(Board_GPIO_24, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
+    init_timer(2000,Timer_FREE_RUNNING,Timer_PERIOD_COUNTS, NULL);
+
+    while (1){
+        if (Timer_getCount(timer) == 0){
+            GPIO_toggle(Board_GPIO_24);
+        }
+    }
+}
+
+void timer_by_interrupts(void)
+{
+    GPIO_setConfig(Board_GPIO_BUTTON0, GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_FALLING);
+    GPIO_setCallback(Board_GPIO_BUTTON0, board_button);
+    GPIO_enableInt(Board_GPIO_BUTTON0);
+    GPIO_setConfig(Board_GPIO_24, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
+    init_timer(period,Timer_CONTINUOUS_CALLBACK,Timer_PERIOD_US, buzzer_toggle);
+
+    while(1)
+    {
+        sleep(1);
+        flag=0;
+    }
+}
+
+void init_timer(int period, Timer_Mode mode, Timer_PeriodUnits units, Timer_CallBackFxn callback){
+    Timer_Params params;
+    Timer_Params_init(&params);
+    params.period = period;
+    params.periodUnits = units;
+    params.timerMode = mode;
+    params.timerCallback = callback;
+    timer = Timer_open(Board_TIMER0, &params);
+    Timer_start(timer);
+}
 
 void seven_segment(void){
     i=0;
@@ -170,27 +211,88 @@ void multipleLED(void){
 
         led_byte(numbers[i0]);                //data for first 7seg
         GPIO_write(Board_GPIO_7S2,GPIO_OFF);  //turning first 7 seg on
-        usleep(5000);                           //delay
+        usleep(6000);                           //delay
         GPIO_write(Board_GPIO_7S2,GPIO_ON);   //turning first 7 seg off
 
         led_byte(numbers[i]);                //data for second 7seg
         GPIO_write(Board_GPIO_7S1,GPIO_OFF);  //turning second 7 seg on
-        usleep(5000);                           //delay
+        usleep(6000);                           //delay
         GPIO_write(Board_GPIO_7S1,GPIO_ON);   //turning second 7 seg off
     }
 }
 
-void refreshLED(Timer_Handle myHandle){
-    flag++;
-    if(flag == 100){
-        i0++;
-        if(i0 == sizeof(numbers)){
-            i0 = 0;
-            i++;
-            if(i == sizeof(numbers))   i = 0;
+void complimentary_task(void)
+{
+    GPIO_init();
+    const int STRINGS = 16;
+    uint8_t text[STRINGS][16] = {"1. Maria","2. Alejandra","3. Marrero", "4. Ortiz",
+                                 "5. Yamil", "6. Jose", "7. Gonzalez", "8. Zuaznabar",
+                                 "9. Diego", "10. Jose","11. Amador", "12. Bonilla",
+                                 "13. Christian", "14. Antonio", "15. Santiago", "16. Berio"};
+    uint8_t positions[] = {0,1};
+    uint8_t lookup_table[] = {0,1,2,0,2,0,0,1,1,0,0,2,0,2,1,0};
+    GPIO_setConfig(Board_GPIO_COL2, GPIO_CFG_IN_PD | GPIO_CFG_IN_INT_BOTH_EDGES);
+    GPIO_setConfig(Board_GPIO_COL3, GPIO_CFG_IN_PD | GPIO_CFG_IN_INT_BOTH_EDGES);
+    GPIO_setCallback(Board_GPIO_COL2, opto_int);
+    GPIO_setCallback(Board_GPIO_COL3, opto_int);
+    GPIO_enableInt(Board_GPIO_COL2);
+    GPIO_enableInt(Board_GPIO_COL3);
+
+    lcd_init_4bit(Board_GPIO_28,Board_GPIO_17,Board_GPIO_16,Board_GPIO_15,Board_GPIO_22,Board_GPIO_25);
+    lcd_init_4bit(Board_GPIO_28,Board_GPIO_17,Board_GPIO_16,Board_GPIO_15,Board_GPIO_22,Board_GPIO_25);
+    usleep(50);
+    lcd_string(text[positions[0]]);
+    usleep(50);
+    lcd_command(lcd_SetCursor|lcd_LineTwo);
+    usleep(50);
+    lcd_string(text[positions[1]]);
+
+    while(1){
+        if(lookup_table[lookup_index] == 1){          //moved forward
+            lcd_command(Clear);
+            usleep(50);
+            int oldpos = positions[1];
+            positions[0] = positions[1];
+            positions[1] = down_pressed(oldpos,STRINGS);
+            lcd_string(text[positions[0]]);
+            usleep(50);
+            lcd_command(lcd_SetCursor|lcd_LineTwo);
+            usleep(50);
+            lcd_string(text[positions[1]]);
+            sleep(0.5);
+            lookup_index =0;
+
         }
-        flag =0;
+        if(lookup_table[lookup_index] == 2){          //moved backward
+            lcd_command(Clear);
+            usleep(50);
+            int oldpos = positions[0];
+            positions[0] = up_pressed(oldpos,STRINGS);
+            positions[1] = oldpos;
+            lcd_string(text[positions[0]]);
+            usleep(50);
+            lcd_command(lcd_SetCursor|lcd_LineTwo);
+            usleep(50);
+            lcd_string(text[positions[1]]);
+            sleep(0.5);
+            lookup_index=0;
+        }
+
     }
+}
+
+uint8_t down_pressed(uint8_t index,uint8_t size){
+    if(index == ( size -1))
+        return 0;
+    else
+        return index +1;
+}
+
+uint8_t up_pressed(uint8_t index, uint8_t size){
+    if(index == 0)
+        return size-1;
+    else
+        return index -1;
 }
 
 

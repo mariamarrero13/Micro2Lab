@@ -13,17 +13,6 @@
 #include "Board.h"
 #include <ti/drivers/GPIO.h>
 
-#define Clear           0b00000001
-#define lcd_EntryMode   0b00000110
-#define Display_off     0b00001000
-#define Display_on      0b00001111
-#define FunctionReset   0b00110000
-#define FunctionSet     0b00101100
-#define lcd_SetCursor   0b10000000
-#define lcd_LineOne     0x00
-#define lcd_LineTwo     0x40
-
-
 void lcd_init_4bit(uint_least8_t D7, uint_least8_t D6, uint_least8_t D5, uint_least8_t D4, uint_least8_t Rs, uint_least8_t E)
 {
     D7 = D7;
