@@ -34,11 +34,11 @@ void lcd_character(uint8_t);
 void lcd_string(uint8_t *);
 void lcd_init_4bit(uint_least8_t D7, uint_least8_t D6, uint_least8_t D5, uint_least8_t D4, uint_least8_t Rs, uint_least8_t E);
 
+
 uint8_t D7;
 uint8_t D6;
 uint8_t D5;
 uint8_t D4;
 uint8_t Rs;
 uint8_t E;
-
 #endif

@@ -13,14 +13,14 @@
 #include "Board.h"
 #include <ti/drivers/GPIO.h>
 
-void lcd_init_4bit(uint_least8_t D7, uint_least8_t D6, uint_least8_t D5, uint_least8_t D4, uint_least8_t Rs, uint_least8_t E)
+void lcd_init_4bit(uint_least8_t pD7, uint_least8_t pD6, uint_least8_t pD5, uint_least8_t pD4, uint_least8_t pRs, uint_least8_t pE)
 {
-    D7 = D7;
-    D6 = D6;
-    D5 = D5;
-    D4 = D4;
-    Rs = Rs;
-    E  = E;
+    D7 = pD7;
+    D6 = pD6;
+    D5 = pD5;
+    D4 = pD4;
+    Rs = pRs;
+    E  = pE;
     GPIO_setConfig(D7, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D7    p18
     GPIO_setConfig(D6, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D6    p08
     GPIO_setConfig(D5, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //D5    p07

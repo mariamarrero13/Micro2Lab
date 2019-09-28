@@ -114,7 +114,7 @@ CaptureCC32XX_Object captureCC3220SObjects[CC3220S_LAUNCHXL_CAPTURECOUNT];
 const CaptureCC32XX_HWAttrs captureCC3220SHWAttrs[CC3220S_LAUNCHXL_CAPTURECOUNT] =
 {
       {
-         .capturePin = CaptureCC32XX_PIN_04,
+         .capturePin = CaptureCC32XX_PIN_61,
          .intPriority = ~0
       },
       {
