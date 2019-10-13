@@ -20,7 +20,7 @@
 #define Clear           0b00000001
 #define lcd_EntryMode   0b00000110
 #define Display_off     0b00001000
-#define Display_on      0b00001111
+#define Display_on      0b00001100
 #define FunctionReset   0b00110000
 #define FunctionSet     0b00101100
 #define lcd_SetCursor   0b10000000

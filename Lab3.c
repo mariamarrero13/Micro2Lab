@@ -27,7 +27,7 @@ uint8_t up_pressed(uint8_t, uint8_t);
 int i0 = 0;
 int i = 0;
 int flag =0;
-int period = 500;
+int period = 1000;
 Timer_Handle timer;
 Capture_Handle capture;
 Capture_Params captureParams;
@@ -52,32 +52,32 @@ void buzzer_toggle(Timer_Handle myHandle)
 
 void board_button(uint_least8_t index)
 {
-    if(period==500 && flag == 0 ){
-        period=1000;
-        flag=1;
-        Timer_close(timer);
-        init_timer(period,Timer_CONTINUOUS_CALLBACK,Timer_PERIOD_HZ,buzzer_toggle);
-    }
-    if(period==1000 && flag ==0 ){
-        period=1500;
-        flag=1;
-        Timer_close(timer);
-        init_timer(period,Timer_CONTINUOUS_CALLBACK,Timer_PERIOD_HZ,buzzer_toggle);
-    }
-    if(period==1500 && flag ==0 ){
+    if(period==1000 && flag == 0 ){
         period=2000;
         flag=1;
         Timer_close(timer);
         init_timer(period,Timer_CONTINUOUS_CALLBACK,Timer_PERIOD_HZ,buzzer_toggle);
     }
-    if(period==2000 && flag ==0 ) {
+    if(period==2000 && flag ==0 ){
         period=3000;
         flag=1;
         Timer_close(timer);
         init_timer(period,Timer_CONTINUOUS_CALLBACK,Timer_PERIOD_HZ,buzzer_toggle);
     }
-    if(period==3000 && flag ==0 ) {
-        period=500;
+    if(period==3000 && flag ==0 ){
+        period=4000;
+        flag=1;
+        Timer_close(timer);
+        init_timer(period,Timer_CONTINUOUS_CALLBACK,Timer_PERIOD_HZ,buzzer_toggle);
+    }
+    if(period==4000 && flag ==0 ) {
+        period=6000;
+        flag=1;
+        Timer_close(timer);
+        init_timer(period,Timer_CONTINUOUS_CALLBACK,Timer_PERIOD_HZ,buzzer_toggle);
+    }
+    if(period==6000 && flag ==0 ) {
+        period=1000;
         flag=1;
         Timer_close(timer);
         init_timer(period,Timer_CONTINUOUS_CALLBACK,Timer_PERIOD_HZ,buzzer_toggle);
@@ -87,7 +87,7 @@ void board_button(uint_least8_t index)
 
 void refreshLED(Timer_Handle myHandle){
     flag++;
-    if(flag == 100){
+    if(flag == 60){
         i0++;
         if(i0 == sizeof(numbers)){
             i0 = 0;
@@ -134,15 +134,21 @@ void timer_by_polling(void)
     uint32_t poll = 0;
     uint32_t oldpoll=0;
     GPIO_setConfig(Board_GPIO_24, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
-    init_timer(250000,Timer_FREE_RUNNING,Timer_PERIOD_US, NULL);
+    init_timer(2800,Timer_FREE_RUNNING,Timer_PERIOD_COUNTS, NULL);
 
     while (1){
-        oldpoll = poll;
-        poll =Timer_getCount(timer);
-        if (Timer_getCount(timer) == 0){
-            printf("\n poll %d", oldpoll);
-            GPIO_toggle(Board_GPIO_24);
-        }
+        //printf("\n %i",Timer_getCount(timer));
+
+        while (Timer_getCount(timer) < 2800 )
+        {}
+        GPIO_toggle(Board_GPIO_24);
+        Timer_stop(timer);
+        Timer_start(timer);
+
+        // printf("\n VALUE");
+
+
+
     }
 }
 
@@ -189,7 +195,7 @@ void seven_segment(void){
     /*Control signal*/
     GPIO_setConfig(Board_GPIO_7S1, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
     GPIO_setConfig(Board_GPIO_7S2, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
-    //    singleLED();
+    //        singleLED();
     multipleLED();
 
 }
