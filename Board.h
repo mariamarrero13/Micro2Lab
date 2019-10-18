@@ -81,6 +81,14 @@ extern "C" {
 #define Board_GPIO_ROW3              CC3220S_LAUNCHXL_GPIO_ROW3
 #define Board_GPIO_ROW4              CC3220S_LAUNCHXL_GPIO_ROW4
 
+/* Lab 5 */
+
+#define mot_bot1                     CC3220S_LAUNCHXL_GPIO_Bot1
+#define mot_bot2                     CC3220S_LAUNCHXL_GPIO_Bot2
+#define mot_bot3                     CC3220S_LAUNCHXL_GPIO_Bot3
+#define mot1                         CC3220S_LAUNCHXL_GPIO_Mot1
+#define mot2                         CC3220S_LAUNCHXL_GPIO_Mot2
+
 ///*SEVEN SEGMENT*/
 //#define Board_GPIO_A              CC3220S_LAUNCHXL_GPIO_A
 //#define Board_GPIO_B              CC3220S_LAUNCHXL_GPIO_B
