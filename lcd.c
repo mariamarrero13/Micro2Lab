@@ -98,5 +98,5 @@ void lcd_byte(uint8_t byte)
     GPIO_write(E,GPIO_ON);
     usleep(.50);
     GPIO_write(E,GPIO_OFF);
-    usleep (.50);
+    usleep(.5);
 }

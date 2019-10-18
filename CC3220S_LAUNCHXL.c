@@ -226,9 +226,13 @@ void Board_init(void)
 GPIO_PinConfig gpioPinConfigs[] = {
     /* input pins with callbacks */
     /* CC3220S_LAUNCHXL_GPIO_SW2 */
-//    GPIOCC32XX_GPIO_13 | GPIO_CFG_INPUT | GPIO_CFG_IN_INT_RISING,
+    GPIOCC32XX_GPIO_13 | GPIO_CFG_INPUT | GPIO_CFG_IN_INT_RISING,
+
+    /*Rotary Encoder*/
+    GPIOCC32XX_GPIO_08 | GPIO_CFG_INPUT | GPIO_CFG_IN_INT_RISING,
+    GPIOCC32XX_GPIO_30 | GPIO_CFG_INPUT | GPIO_CFG_IN_INT_RISING,
     /* Push Button */
-//    GPIOCC32XX_GPIO_10 | GPIO_CFG_INPUT | GPIO_CFG_IN_INT_RISING, //change to 24 //changed from pin 62 to pin 01
+    GPIOCC32XX_GPIO_11 | GPIO_CFG_INPUT | GPIO_CFG_IN_INT_RISING,
     /* KEYPAD COLUMNS*/
     GPIOCC32XX_GPIO_13 | GPIO_CFG_INPUT | GPIO_CFG_IN_INT_RISING,
     GPIOCC32XX_GPIO_06 | GPIO_CFG_INPUT | GPIO_CFG_IN_INT_RISING,
@@ -459,6 +463,9 @@ const PWMTimerCC32XX_HWAttrsV2 pwmTimerCC3220SHWAttrs[CC3220S_LAUNCHXL_PWMCOUNT]
     },
     {    /* CC3220S_LAUNCHXL_PWM7 */
         .pwmPin = PWMTimerCC32XX_PIN_02
+    },
+    {
+         .pwmPin = PWMTimerCC32XX_PIN_64
     }
 };
 
@@ -472,6 +479,11 @@ const PWM_Config PWM_config[CC3220S_LAUNCHXL_PWMCOUNT] = {
         .fxnTablePtr = &PWMTimerCC32XX_fxnTable,
         .object = &pwmTimerCC3220SObjects[CC3220S_LAUNCHXL_PWM7],
         .hwAttrs = &pwmTimerCC3220SHWAttrs[CC3220S_LAUNCHXL_PWM7]
+    },
+    {
+        .fxnTablePtr = &PWMTimerCC32XX_fxnTable,
+        .object = &pwmTimerCC3220SObjects[CC3220S_LAUNCHXL_PWM8],
+        .hwAttrs = &pwmTimerCC3220SHWAttrs[CC3220S_LAUNCHXL_PWM8]
     }
 };
 

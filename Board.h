@@ -55,7 +55,11 @@ extern "C" {
 
 #define Board_CRYPTO0                CC3220S_LAUNCHXL_CRYPTO0
 
-//#define Board_GPIO_BUTTON0           CC3220S_LAUNCHXL_GPIO_SW2
+#define Board_GPIO_BUTTON0           CC3220S_LAUNCHXL_GPIO_SW2
+#define Board_GPIO_BUTTON1           CC3220S_LAUNCHXL_GPIO_PB1
+
+#define rotary_DT                    CC3220S_LAUNCHXL_GPIO_DT
+#define rotary_CLK                   CC3220S_LAUNCHXL_GPIO_CLK
 
 #define Board_GPIO_LED_ON            CC3220S_LAUNCHXL_GPIO_LED_ON
 #define Board_GPIO_LED_OFF           CC3220S_LAUNCHXL_GPIO_LED_OFF
@@ -107,6 +111,7 @@ extern "C" {
 
 #define Board_PWM0                   CC3220S_LAUNCHXL_PWM6
 #define Board_PWM1                   CC3220S_LAUNCHXL_PWM7
+#define Board_PWM2                   CC3220S_LAUNCHXL_PWM8
 
 #define Board_SD0                    CC3220S_LAUNCHXL_SD0
 
