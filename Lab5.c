@@ -25,13 +25,16 @@ PWM_Handle pwm2 = NULL;
 uint8_t text[] = "base string";
 
 void dc_motor_trans();
+void dc_motor_pwm();
+void servo_motor();
 void clear_line(int line);
 void set_duty(uint8_t motor_on,uint32_t duty);
 void duty_onscreen(uint8_t duty);
 
 void *mainThread(void *arg0){
     //    dc_motor_trans();
-    dc_motor_pwm();
+    //    dc_motor_pwm();
+    servo_motor();
     return (NULL);
 }
 
@@ -137,7 +140,40 @@ void dc_motor_pwm(){
         }
     }
 }
+void servo_motor()
+{
+    //    uint32_t duty_lookup[] = {300, 525,750,975,1200,1425, 1650, 1875, 2100, 1875, 1650, 1425,1200, 975,750, 525};
+    uint32_t duty_lookup[] = {250, 525, 1425, 1200,1650, 750, 2100, 1875, 975};
+    uint8_t duty = 0;
+    PWM_init();
+    lcd_init_4bit(Board_GPIO_28,Board_GPIO_17,Board_GPIO_16,Board_GPIO_15,Board_GPIO_22,Board_GPIO_25);
+    lcd_init_4bit(Board_GPIO_28,Board_GPIO_17,Board_GPIO_16,Board_GPIO_15,Board_GPIO_22,Board_GPIO_25);
 
+    uint16_t   pwmPeriod = 50; // period in Hz
+
+    PWM_Params params;
+    PWM_Params_init(&params);
+    params.dutyUnits = PWM_DUTY_US;
+    params.dutyValue = 1000;
+    params.periodUnits = PWM_PERIOD_HZ;
+    params.periodValue = pwmPeriod;
+
+
+    pwm1 = PWM_open(Board_PWM0, &params);
+    PWM_start(pwm1);
+
+    PWM_setDuty(pwm1, duty_lookup[duty]);
+
+    while(1)
+    {
+        sleep(4);
+        if(++duty == 9) duty = 0;
+        PWM_setDuty(pwm1, duty_lookup[duty]);
+    }
+}
+/**
+ * Helper Methods
+ * */
 void set_duty(uint8_t motor_on,uint32_t duty){
     if(motor_on == 0){
         PWM_setDuty(pwm1, duty);
