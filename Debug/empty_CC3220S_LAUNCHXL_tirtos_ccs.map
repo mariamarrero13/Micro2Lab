@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker PC v18.12.2                    
 ******************************************************************************
->> Linked Sat Oct 19 18:11:19 2019
+>> Linked Sat Oct 19 19:33:47 2019
 
 OUTPUT FILE NAME:   <empty_CC3220S_LAUNCHXL_tirtos_ccs.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 2000f8bd
@@ -12,7 +12,7 @@ MEMORY CONFIGURATION
          name            origin    length      used     unused   attr    fill
 ----------------------  --------  ---------  --------  --------  ----  --------
   SRAM0                 20000000   00004000  0000070c  000038f4  RW X
-  SRAM                  20004000   0003c000  0000e4e7  0002db19  RW X
+  SRAM                  20004000   0003c000  0000e4f7  0002db09  RW X
 
 
 SEGMENT ALLOCATION MAP
@@ -27,11 +27,11 @@ run origin  load origin   length   init length attrs members
 2000c040    2000c040    000053f7   000053f7    r-x
   2000c040    2000c040    00004ca2   00004ca2    r-x .text
   20010ce4    20010ce4    00000753   00000753    r-- .const
-20011438    20011438    00000e12   00000000    rw-
-  20011438    20011438    0000073c   00000000    rw- .data
-  20011b78    20011b78    000006d2   00000000    rw- .bss
-20012250    20012250    000002a8   000002a8    r--
-  20012250    20012250    000002a8   000002a8    r-- .cinit
+20011438    20011438    00000e22   00000000    rw-
+  20011438    20011438    0000074c   00000000    rw- .data
+  20011b88    20011b88    000006d2   00000000    rw- .bss
+20012260    20012260    000002a8   000002a8    r--
+  20012260    20012260    000002a8   000002a8    r-- .cinit
 
 
 SECTION ALLOCATION MAP
@@ -527,72 +527,71 @@ section   page    origin      length       input sections
                   20011435    00000001     release_pem4.oem4 (.const:xdc_runtime_Error_policy__C)
                   20011436    00000001     release_pem4.oem4 (.const:xdc_runtime_Text_charTab__A)
 
-.bss       0    20011b78    000006d2     UNINITIALIZED
-                  20011b78    0000030c     (.common:ti_sysbios_family_arm_m3_Hwi_dispatchTable)
-                  20011e84    00000004     drivers_cc32xx.aem4 : TimerCC32XX.oem4 (.bss:timerState)
-                  20011e88    00000200     release_pem4.oem4 (.bss:taskStackSection)
-                  20012088    0000012c     (.common:PowerCC32XX_contextSave)
-                  200121b4    0000006c     (.common:pwmTimerCC3220SObjects)
-                  20012220    00000020     drivers_cc32xx.aem4 : GPIOCC32XX.oem4 (.bss:gpioCallbackInfo)
-                  20012240    00000004     (.common:ti_sysbios_knl_Task_Instance_State_0_hookEnv__A)
-                  20012244    00000001     (.common:D4)
-                  20012245    00000001     (.common:D5)
-                  20012246    00000001     (.common:D6)
-                  20012247    00000001     (.common:D7)
-                  20012248    00000001     (.common:E)
-                  20012249    00000001     (.common:Rs)
+.bss       0    20011b88    000006d2     UNINITIALIZED
+                  20011b88    0000030c     (.common:ti_sysbios_family_arm_m3_Hwi_dispatchTable)
+                  20011e94    00000004     drivers_cc32xx.aem4 : TimerCC32XX.oem4 (.bss:timerState)
+                  20011e98    00000200     release_pem4.oem4 (.bss:taskStackSection)
+                  20012098    0000012c     (.common:PowerCC32XX_contextSave)
+                  200121c4    0000006c     (.common:pwmTimerCC3220SObjects)
+                  20012230    00000020     drivers_cc32xx.aem4 : GPIOCC32XX.oem4 (.bss:gpioCallbackInfo)
+                  20012250    00000004     (.common:ti_sysbios_knl_Task_Instance_State_0_hookEnv__A)
+                  20012254    00000001     (.common:D4)
+                  20012255    00000001     (.common:D5)
+                  20012256    00000001     (.common:D6)
+                  20012257    00000001     (.common:D7)
+                  20012258    00000001     (.common:E)
+                  20012259    00000001     (.common:Rs)
 
-.data      0    20011438    0000073c     UNINITIALIZED
+.data      0    20011438    0000074c     UNINITIALIZED
                   20011438    0000016c     drivers_cc32xx.aem4 : PowerCC32XX.oem4 (.data:PowerCC32XX_module)
                   200115a4    000000f8     CC3220S_LAUNCHXL.obj (.data:parkInfo)
                   2001169c    00000088     sysbios.aem4 : BIOS.obj (.data:$O1$$)
                   20011724    00000080     release_pem4.oem4 (.data:ti_sysbios_knl_Swi_Module_State_0_readyQ__A)
                   200117a4    00000080     release_pem4.oem4 (.data:ti_sysbios_knl_Task_Module_State_0_readyQ__A)
-                  20011824    00000064     CC3220S_LAUNCHXL.obj (.data:gpioPinConfigs)
-                  20011888    0000005c     release_pem4.oem4 (.data:ti_sysbios_knl_Task_Object__table__V)
-                  200118e4    00000054     release_pem4.oem4 (.data:ti_sysbios_gates_GateMutex_Object__table__V)
-                  20011938    00000048     release_pem4.oem4 (.data:ti_sysbios_knl_Task_Module__state__V)
-                  20011980    00000034     release_pem4.oem4 (.data:ti_sysbios_family_arm_m3_Hwi_Module__state__V)
-                  200119b4    00000030     release_pem4.oem4 (.data:ti_sysbios_family_arm_m3_Timer_Object__table__V)
-                  200119e4    00000030     release_pem4.oem4 (.data:ti_sysbios_knl_Swi_Object__table__V)
-                  20011a14    0000002c     release_pem4.oem4 (.data:ti_sysbios_knl_Clock_Module__state__V)
-                  20011a40    00000024     release_pem4.oem4 (.data:ti_sysbios_BIOS_Module__state__V)
-                  20011a64    00000020     release_pem4.oem4 (.data:xdc_runtime_Error_IgnoreBlock)
-                  20011a84    0000001c     release_pem4.oem4 (.data:ti_sysbios_knl_Swi_Module__state__V)
-                  20011aa0    00000018     release_pem4.oem4 (.data:ti_sysbios_family_arm_m3_Hwi_Object__table__V)
-                  20011ab8    00000018     release_pem4.oem4 (.data:ti_sysbios_heaps_HeapMem_Object__table__V)
-                  20011ad0    00000010     CC3220S_LAUNCHXL.obj (.data:gpioCallbackFunctions)
-                  20011ae0    0000000c     release_pem4.oem4 (.data:ti_sysbios_family_arm_m3_Timer_Module__state__V)
-                  20011aec    00000009     drivers_cc32xx.aem4 : GPIOCC32XX.oem4 (.data)
-                  20011af5    00000001                         : PWM.oem4 (.data)
-                  20011af6    00000002     release_pem4.oem4 (.data:ti_sysbios_family_arm_m3_Hwi_Module_State_0_excActive__A)
-                  20011af8    00000008     rtsv7M4_T_le_eabi.lib : _lock.c.obj (.data:$O1$$)
-                  20011b00    00000008     Lab5.obj (.data)
-                  20011b08    00000008     release_pem4.oem4 (.data:ti_sysbios_family_arm_m3_Hwi_Module__root__V)
-                  20011b10    00000008     release_pem4.oem4 (.data:ti_sysbios_gates_GateHwi_Module__root__V)
-                  20011b18    00000008     release_pem4.oem4 (.data:ti_sysbios_gates_GateMutex_Module__root__V)
-                  20011b20    00000008     release_pem4.oem4 (.data:ti_sysbios_heaps_HeapMem_Module__root__V)
-                  20011b28    00000008     release_pem4.oem4 (.data:ti_sysbios_knl_Queue_Module__root__V)
-                  20011b30    00000008     release_pem4.oem4 (.data:ti_sysbios_knl_Semaphore_Module__root__V)
-                  20011b38    00000008     release_pem4.oem4 (.data:ti_sysbios_knl_Task_Module__root__V)
-                  20011b40    00000008     release_pem4.oem4 (.data:xdc_runtime_Startup_Module__state__V)
-                  20011b48    00000008     release_pem4.oem4 (.data:xdc_runtime_System_Module_State_0_atexitHandlers__A)
-                  20011b50    00000008     release_pem4.oem4 (.data:xdc_runtime_System_Module__state__V)
-                  20011b58    00000004     rtsv7M4_T_le_eabi.lib : stkdepth_vars.c.obj (.data)
-                  20011b5c    00000004     release_pem4.oem4 (.data:ti_sysbios_family_arm_m3_Hwi_Module_State_0_excContext__A)
-                  20011b60    00000004     release_pem4.oem4 (.data:ti_sysbios_family_arm_m3_Hwi_Module_State_0_excStack__A)
-                  20011b64    00000004     release_pem4.oem4 (.data:ti_sysbios_gates_GateHwi_Object__table__V)
-                  20011b68    00000004     release_pem4.oem4 (.data:ti_sysbios_knl_Task_Module_State_0_idleTask__A)
-                  20011b6c    00000004     release_pem4.oem4 (.data:ti_sysbios_rts_ti_ReentSupport_Module__state__V)
-                  20011b70    00000004     release_pem4.oem4 (.data:xdc_runtime_Memory_Module__state__V)
+                  20011824    00000074     CC3220S_LAUNCHXL.obj (.data:gpioPinConfigs)
+                  20011898    0000005c     release_pem4.oem4 (.data:ti_sysbios_knl_Task_Object__table__V)
+                  200118f4    00000054     release_pem4.oem4 (.data:ti_sysbios_gates_GateMutex_Object__table__V)
+                  20011948    00000048     release_pem4.oem4 (.data:ti_sysbios_knl_Task_Module__state__V)
+                  20011990    00000034     release_pem4.oem4 (.data:ti_sysbios_family_arm_m3_Hwi_Module__state__V)
+                  200119c4    00000030     release_pem4.oem4 (.data:ti_sysbios_family_arm_m3_Timer_Object__table__V)
+                  200119f4    00000030     release_pem4.oem4 (.data:ti_sysbios_knl_Swi_Object__table__V)
+                  20011a24    0000002c     release_pem4.oem4 (.data:ti_sysbios_knl_Clock_Module__state__V)
+                  20011a50    00000024     release_pem4.oem4 (.data:ti_sysbios_BIOS_Module__state__V)
+                  20011a74    00000020     release_pem4.oem4 (.data:xdc_runtime_Error_IgnoreBlock)
+                  20011a94    0000001c     release_pem4.oem4 (.data:ti_sysbios_knl_Swi_Module__state__V)
+                  20011ab0    00000018     release_pem4.oem4 (.data:ti_sysbios_family_arm_m3_Hwi_Object__table__V)
+                  20011ac8    00000018     release_pem4.oem4 (.data:ti_sysbios_heaps_HeapMem_Object__table__V)
+                  20011ae0    00000010     CC3220S_LAUNCHXL.obj (.data:gpioCallbackFunctions)
+                  20011af0    0000000c     release_pem4.oem4 (.data:ti_sysbios_family_arm_m3_Timer_Module__state__V)
+                  20011afc    00000009     drivers_cc32xx.aem4 : GPIOCC32XX.oem4 (.data)
+                  20011b05    00000001                         : PWM.oem4 (.data)
+                  20011b06    00000002     release_pem4.oem4 (.data:ti_sysbios_family_arm_m3_Hwi_Module_State_0_excActive__A)
+                  20011b08    00000008     rtsv7M4_T_le_eabi.lib : _lock.c.obj (.data:$O1$$)
+                  20011b10    00000008     Lab5.obj (.data)
+                  20011b18    00000008     release_pem4.oem4 (.data:ti_sysbios_family_arm_m3_Hwi_Module__root__V)
+                  20011b20    00000008     release_pem4.oem4 (.data:ti_sysbios_gates_GateHwi_Module__root__V)
+                  20011b28    00000008     release_pem4.oem4 (.data:ti_sysbios_gates_GateMutex_Module__root__V)
+                  20011b30    00000008     release_pem4.oem4 (.data:ti_sysbios_heaps_HeapMem_Module__root__V)
+                  20011b38    00000008     release_pem4.oem4 (.data:ti_sysbios_knl_Queue_Module__root__V)
+                  20011b40    00000008     release_pem4.oem4 (.data:ti_sysbios_knl_Semaphore_Module__root__V)
+                  20011b48    00000008     release_pem4.oem4 (.data:ti_sysbios_knl_Task_Module__root__V)
+                  20011b50    00000008     release_pem4.oem4 (.data:xdc_runtime_Startup_Module__state__V)
+                  20011b58    00000008     release_pem4.oem4 (.data:xdc_runtime_System_Module_State_0_atexitHandlers__A)
+                  20011b60    00000008     release_pem4.oem4 (.data:xdc_runtime_System_Module__state__V)
+                  20011b68    00000004     rtsv7M4_T_le_eabi.lib : stkdepth_vars.c.obj (.data)
+                  20011b6c    00000004     release_pem4.oem4 (.data:ti_sysbios_family_arm_m3_Hwi_Module_State_0_excContext__A)
+                  20011b70    00000004     release_pem4.oem4 (.data:ti_sysbios_family_arm_m3_Hwi_Module_State_0_excStack__A)
+                  20011b74    00000004     release_pem4.oem4 (.data:ti_sysbios_gates_GateHwi_Object__table__V)
+                  20011b78    00000004     release_pem4.oem4 (.data:ti_sysbios_knl_Task_Module_State_0_idleTask__A)
+                  20011b7c    00000004     release_pem4.oem4 (.data:ti_sysbios_rts_ti_ReentSupport_Module__state__V)
+                  20011b80    00000004     release_pem4.oem4 (.data:xdc_runtime_Memory_Module__state__V)
 
-.cinit     0    20012250    000002a8     
-                  20012250    0000027e     (.cinit..data.load) [load image, compression = lzss]
-                  200124ce    00000002     --HOLE-- [fill = 0]
-                  200124d0    0000000c     (__TI_handler_table)
-                  200124dc    00000004     --HOLE-- [fill = 0]
-                  200124e0    00000008     (.cinit..bss.load) [load image, compression = zero_init]
-                  200124e8    00000010     (__TI_cinit_table)
+.cinit     0    20012260    000002a8     
+                  20012260    00000280     (.cinit..data.load) [load image, compression = lzss]
+                  200124e0    0000000c     (__TI_handler_table)
+                  200124ec    00000004     --HOLE-- [fill = 0]
+                  200124f0    00000008     (.cinit..bss.load) [load image, compression = zero_init]
+                  200124f8    00000010     (__TI_cinit_table)
 
 .init_array 
 *          0    20004000    00000000     UNINITIALIZED
@@ -619,12 +618,12 @@ MODULE SUMMARY
        Module                       code    ro data   rw data
        ------                       ----    -------   -------
     .\
-       CC3220S_LAUNCHXL.obj         20      144       472    
+       CC3220S_LAUNCHXL.obj         20      144       488    
        lcd.obj                      420     0         0      
        Lab5.obj                     216     36        14     
        main_tirtos.obj              100     0         0      
     +--+----------------------------+-------+---------+---------+
-       Total:                       756     180       486    
+       Total:                       756     180       502    
                                                              
     C:\Users\maria\micro2workspace\tirtos_builds_CC3220S_LAUNCHXL_release_ccs\Debug\configPkg\package\cfg\
        release_pem4.oem4            1256    1096      3034   
@@ -692,21 +691,21 @@ MODULE SUMMARY
        Total:                       68      0         0      
                                                              
        Stack:                       0       0         1024   
-       Linker Generated:            0       674       0      
+       Linker Generated:            0       676       0      
     +--+----------------------------+-------+---------+---------+
-       Grand Total:                 19338   2609      5402   
+       Grand Total:                 19338   2611      5418   
 
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 200124e8 records: 2, size/record: 8, table size: 16
-	.data: load addr=20012250, load size=0000027e bytes, run addr=20011438, run size=0000073c bytes, compression=lzss
-	.bss: load addr=200124e0, load size=00000008 bytes, run addr=20011b78, run size=000006d2 bytes, compression=zero_init
+__TI_cinit_table @ 200124f8 records: 2, size/record: 8, table size: 16
+	.data: load addr=20012260, load size=00000280 bytes, run addr=20011438, run size=0000074c bytes, compression=lzss
+	.bss: load addr=200124f0, load size=00000008 bytes, run addr=20011b88, run size=000006d2 bytes, compression=zero_init
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 200124d0 records: 3, size/record: 4, table size: 12
+__TI_handler_table @ 200124e0 records: 3, size/record: 4, table size: 12
 	index: 0, handler: __TI_zero_init
 	index: 1, handler: __TI_decompress_lzss
 	index: 2, handler: __TI_decompress_none
@@ -723,11 +722,11 @@ address   name
 2000cc65  ClockP_getCpuFreq                                               
 20010b71  ClockP_getSystemTicks                                           
 200112e6  CryptoCC32XX_count                                              
-20012244  D4                                                              
-20012245  D5                                                              
-20012246  D6                                                              
-20012247  D7                                                              
-20012248  E                                                               
+20012254  D4                                                              
+20012255  D5                                                              
+20012256  D6                                                              
+20012257  D7                                                              
+20012258  E                                                               
 2000f51d  FlashDisable                                                    
 20011278  GPIOCC32XX_config                                               
 2000e83d  GPIO_hwiIntFxn                                                  
@@ -776,7 +775,7 @@ address   name
 200105f9  PinToPadGet                                                     
 20010f28  PowerCC32XX_config                                              
 2000d99d  PowerCC32XX_configureWakeup                                     
-20012088  PowerCC32XX_contextSave                                         
+20012098  PowerCC32XX_contextSave                                         
 2000f879  PowerCC32XX_enterLPDS                                           
 20010261  PowerCC32XX_initPolicy                                          
 20011438  PowerCC32XX_module                                              
@@ -796,7 +795,7 @@ address   name
 2000e6bd  Power_setDependency                                             
 2000cb49  Power_sleep                                                     
 200104f5  Power_unregisterNotify                                          
-20012249  Rs                                                              
+20012259  Rs                                                              
 200112ea  SDFatFS_count                                                   
 200112eb  SD_count                                                        
 UNDEFED   SHT$$INIT_ARRAY$$Base                                           
@@ -814,17 +813,17 @@ UNDEFED   SHT$$INIT_ARRAY$$Limit
 20004000  __STACK_END                                                     
 00000400  __STACK_SIZE                                                    
 000000bb  __TARG__                                                        
-200124e8  __TI_CINIT_Base                                                 
-200124f8  __TI_CINIT_Limit                                                
-200124d0  __TI_Handler_Table_Base                                         
-200124dc  __TI_Handler_Table_Limit                                        
+200124f8  __TI_CINIT_Base                                                 
+20012508  __TI_CINIT_Limit                                                
+200124e0  __TI_Handler_Table_Base                                         
+200124ec  __TI_Handler_Table_Limit                                        
 2000db8d  __TI_auto_init                                                  
 2000ea75  __TI_decompress_lzss                                            
 20010aa9  __TI_decompress_none                                            
 ffffffff  __TI_pprof_out_hndl                                             
 ffffffff  __TI_prof_data_size                                             
 ffffffff  __TI_prof_data_start                                            
-20012250  __TI_static_base__                                              
+20012260  __TI_static_base__                                              
 20010b19  __TI_zero_init                                                  
 000000e0  __TRDR__                                                        
 2000e83b  __aeabi_idiv0                                                   
@@ -847,16 +846,16 @@ ffffffff  __c_args__
 20003c00  __stack                                                         
 20010741  _args_main                                                      
 2000f8bd  _c_int00                                                        
-20011af8  _lock                                                           
+20011b08  _lock                                                           
 2000e41f  _nop                                                            
 20010189  _pthread_cleanupFxn                                             
 2000dc31  _pthread_removeThreadKeys                                       
 20010b01  _register_lock                                                  
 20010b0d  _register_unlock                                                
-20011afc  _unlock                                                         
+20011b0c  _unlock                                                         
 ffffffff  binit                                                           
 2000f2ad  copy_in                                                         
-20011ad0  gpioCallbackFunctions                                           
+20011ae0  gpioCallbackFunctions                                           
 20011824  gpioPinConfigs                                                  
 20011346  inPinTypes                                                      
 2000e4a5  lcd_byte                                                        
@@ -864,7 +863,7 @@ ffffffff  binit
 2000d09d  lcd_init_4bit                                                   
 2000ebad  main                                                            
 20010b25  mainThread                                                      
-20011b58  main_func_sp                                                    
+20011b68  main_func_sp                                                    
 2000dccd  memcpy                                                          
 2000e7c9  memset                                                          
 2001134c  outPinStrengths                                                 
@@ -876,13 +875,13 @@ ffffffff  binit
 20010c31  pthread_attr_setstacksize                                       
 2000d281  pthread_create                                                  
 2000eae1  pthread_exit                                                    
-20011b00  pwm1                                                            
-20011b04  pwm2                                                            
+20011b10  pwm1                                                            
+20011b14  pwm2                                                            
 200112f0  pwmTimerCC3220SHWAttrs                                          
-200121b4  pwmTimerCC3220SObjects                                          
+200121c4  pwmTimerCC3220SObjects                                          
 2000d511  servo_motor                                                     
 2000fb61  sleep                                                           
-20011a40  ti_sysbios_BIOS_Module__state__V                                
+20011a50  ti_sysbios_BIOS_Module__state__V                                
 200107d1  ti_sysbios_BIOS_RtsGateProxy_Handle__label__S                   
 2000cf9d  ti_sysbios_BIOS_RtsGateProxy_enter__E                           
 2000d825  ti_sysbios_BIOS_RtsGateProxy_leave__E                           
@@ -902,28 +901,28 @@ ffffffff  binit
 20011358  ti_sysbios_family_arm_m3_Hwi_E_alreadyDefined__C                
 2000fba1  ti_sysbios_family_arm_m3_Hwi_Instance_finalize__E               
 2000de01  ti_sysbios_family_arm_m3_Hwi_Instance_init__E                   
-20011af6  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excActive__A        
-20011b5c  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excContext__A       
-20011b60  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excStack__A         
+20011b06  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excActive__A        
+20011b6c  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excContext__A       
+20011b70  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excStack__A         
 200110de  ti_sysbios_family_arm_m3_Hwi_Module__id__C                      
-20011b08  ti_sysbios_family_arm_m3_Hwi_Module__root__V                    
+20011b18  ti_sysbios_family_arm_m3_Hwi_Module__root__V                    
 20010789  ti_sysbios_family_arm_m3_Hwi_Module__startupDone__F             
 20010789  ti_sysbios_family_arm_m3_Hwi_Module__startupDone__S             
-20011980  ti_sysbios_family_arm_m3_Hwi_Module__state__V                   
+20011990  ti_sysbios_family_arm_m3_Hwi_Module__state__V                   
 2000f1c1  ti_sysbios_family_arm_m3_Hwi_Module_startup__E                  
 2001135c  ti_sysbios_family_arm_m3_Hwi_NUM_INTERRUPTS__C                  
 20011100  ti_sysbios_family_arm_m3_Hwi_Object__DESC__C                    
 20010f68  ti_sysbios_family_arm_m3_Hwi_Object__PARAMS__C                  
 20011360  ti_sysbios_family_arm_m3_Hwi_Object__count__C                   
 200108fd  ti_sysbios_family_arm_m3_Hwi_Object__get__S                     
-20011aa0  ti_sysbios_family_arm_m3_Hwi_Object__table__V                   
+20011ab0  ti_sysbios_family_arm_m3_Hwi_Object__table__V                   
 20010b31  ti_sysbios_family_arm_m3_Hwi_Params__init__S                    
 20011364  ti_sysbios_family_arm_m3_Hwi_ccr__C                             
 2000f01d  ti_sysbios_family_arm_m3_Hwi_create                             
 20010b41  ti_sysbios_family_arm_m3_Hwi_disableFxn__E                      
 2000f641  ti_sysbios_family_arm_m3_Hwi_disableInterrupt__E                
 2000ec11  ti_sysbios_family_arm_m3_Hwi_dispatchC__I                       
-20011b78  ti_sysbios_family_arm_m3_Hwi_dispatchTable                      
+20011b88  ti_sysbios_family_arm_m3_Hwi_dispatchTable                      
 2000d371  ti_sysbios_family_arm_m3_Hwi_dispatch__I                        
 20010c39  ti_sysbios_family_arm_m3_Hwi_doSwiRestore__I                    
 20010c59  ti_sysbios_family_arm_m3_Hwi_doTaskRestore__I                   
@@ -958,9 +957,9 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 20011356  ti_sysbios_family_arm_m3_Timer_Module__id__C                    
 200107a1  ti_sysbios_family_arm_m3_Timer_Module__startupDone__F           
 200107a1  ti_sysbios_family_arm_m3_Timer_Module__startupDone__S           
-20011ae0  ti_sysbios_family_arm_m3_Timer_Module__state__V                 
+20011af0  ti_sysbios_family_arm_m3_Timer_Module__state__V                 
 20010639  ti_sysbios_family_arm_m3_Timer_Module_startup__E                
-200119b4  ti_sysbios_family_arm_m3_Timer_Object__table__V                 
+200119c4  ti_sysbios_family_arm_m3_Timer_Object__table__V                 
 20010c91  ti_sysbios_family_arm_m3_Timer_getMaxTicks__E                   
 2000f719  ti_sysbios_family_arm_m3_Timer_initDevice__I                    
 2000ff09  ti_sysbios_family_arm_m3_Timer_periodicStub__I                  
@@ -975,12 +974,12 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 200107b9  ti_sysbios_gates_GateHwi_Handle__label__S                       
 20010cb9  ti_sysbios_gates_GateHwi_Instance_init__E                       
 2001102c  ti_sysbios_gates_GateHwi_Module__FXNS__C                        
-20011b10  ti_sysbios_gates_GateHwi_Module__root__V                        
+20011b20  ti_sysbios_gates_GateHwi_Module__root__V                        
 20011120  ti_sysbios_gates_GateHwi_Object__DESC__C                        
 20011218  ti_sysbios_gates_GateHwi_Object__PARAMS__C                      
 20010005  ti_sysbios_gates_GateHwi_Object__create__S                      
 20010535  ti_sysbios_gates_GateHwi_Object__delete__S                      
-20011b64  ti_sysbios_gates_GateHwi_Object__table__V                       
+20011b74  ti_sysbios_gates_GateHwi_Object__table__V                       
 20010b61  ti_sysbios_gates_GateHwi_enter__E                               
 20010c69  ti_sysbios_gates_GateHwi_leave__E                               
 20010c99  ti_sysbios_gates_GateHwi_query__E                               
@@ -989,12 +988,12 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 20010a19  ti_sysbios_gates_GateMutex_Instance_finalize__E                 
 20010679  ti_sysbios_gates_GateMutex_Instance_init__E                     
 20011050  ti_sysbios_gates_GateMutex_Module__FXNS__C                      
-20011b18  ti_sysbios_gates_GateMutex_Module__root__V                      
+20011b28  ti_sysbios_gates_GateMutex_Module__root__V                      
 20011140  ti_sysbios_gates_GateMutex_Object__DESC__C                      
 20011230  ti_sysbios_gates_GateMutex_Object__PARAMS__C                    
 20010035  ti_sysbios_gates_GateMutex_Object__create__S                    
 20010435  ti_sysbios_gates_GateMutex_Object__delete__S                    
-200118e4  ti_sysbios_gates_GateMutex_Object__table__V                     
+200118f4  ti_sysbios_gates_GateMutex_Object__table__V                     
 20010069  ti_sysbios_gates_GateMutex_enter__E                             
 200107e9  ti_sysbios_gates_GateMutex_leave__E                             
 20010ca1  ti_sysbios_gates_GateMutex_query__E                             
@@ -1024,14 +1023,14 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 20010f98  ti_sysbios_heaps_HeapMem_Module__FXNS__C                        
 20011390  ti_sysbios_heaps_HeapMem_Module__gateObj__C                     
 2001142c  ti_sysbios_heaps_HeapMem_Module__id__C                          
-20011b20  ti_sysbios_heaps_HeapMem_Module__root__V                        
+20011b30  ti_sysbios_heaps_HeapMem_Module__root__V                        
 20011160  ti_sysbios_heaps_HeapMem_Object__DESC__C                        
 20011074  ti_sysbios_heaps_HeapMem_Object__PARAMS__C                      
 20011394  ti_sysbios_heaps_HeapMem_Object__count__C                       
 20010099  ti_sysbios_heaps_HeapMem_Object__create__S                      
 20010555  ti_sysbios_heaps_HeapMem_Object__delete__S                      
 20010939  ti_sysbios_heaps_HeapMem_Object__get__S                         
-20011ab8  ti_sysbios_heaps_HeapMem_Object__table__V                       
+20011ac8  ti_sysbios_heaps_HeapMem_Object__table__V                       
 2000d441  ti_sysbios_heaps_HeapMem_alloc__E                               
 2000e639  ti_sysbios_heaps_HeapMem_free__E                                
 2000f3e1  ti_sysbios_heaps_HeapMem_getStats__E                            
@@ -1041,7 +1040,7 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 2001139c  ti_sysbios_heaps_HeapMem_primaryHeapEndAddr__C                  
 200113a0  ti_sysbios_heaps_HeapMem_reqAlign__C                            
 200113a4  ti_sysbios_knl_Clock_Module_State_clockQ__O                     
-20011a14  ti_sysbios_knl_Clock_Module__state__V                           
+20011a24  ti_sysbios_knl_Clock_Module__state__V                           
 20010459  ti_sysbios_knl_Clock_Module_startup__E                          
 200107a1  ti_sysbios_knl_Clock_TimerProxy_Module__startupDone__S          
 2000e5ad  ti_sysbios_knl_Clock_TimerProxy_getMaxTicks__E                  
@@ -1074,7 +1073,7 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 200113b4  ti_sysbios_knl_Mailbox_maxTypeAlign__C                          
 2000f949  ti_sysbios_knl_Mailbox_postInit__I                              
 20010c79  ti_sysbios_knl_Queue_Instance_init__E                           
-20011b28  ti_sysbios_knl_Queue_Module__root__V                            
+20011b38  ti_sysbios_knl_Queue_Module__root__V                            
 20011180  ti_sysbios_knl_Queue_Object__DESC__C                            
 20011248  ti_sysbios_knl_Queue_Object__PARAMS__C                          
 20010bad  ti_sysbios_knl_Queue_Object__get__S                             
@@ -1085,7 +1084,7 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 200113b8  ti_sysbios_knl_Semaphore_Instance_State_pendQ__O                
 20010a39  ti_sysbios_knl_Semaphore_Instance_finalize__E                   
 20010481  ti_sysbios_knl_Semaphore_Instance_init__E                       
-20011b30  ti_sysbios_knl_Semaphore_Module__root__V                        
+20011b40  ti_sysbios_knl_Semaphore_Module__root__V                        
 200111a0  ti_sysbios_knl_Semaphore_Object__DESC__C                        
 20011098  ti_sysbios_knl_Semaphore_Object__PARAMS__C                      
 20010bb9  ti_sysbios_knl_Semaphore_Params__init__S                        
@@ -1095,11 +1094,11 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 2000ca19  ti_sysbios_knl_Semaphore_pend__E                                
 2000ecd9  ti_sysbios_knl_Semaphore_post__E                                
 20011724  ti_sysbios_knl_Swi_Module_State_0_readyQ__A                     
-20011a84  ti_sysbios_knl_Swi_Module__state__V                             
+20011a94  ti_sysbios_knl_Swi_Module__state__V                             
 20010301  ti_sysbios_knl_Swi_Module_startup__E                            
 200113bc  ti_sysbios_knl_Swi_Object__count__C                             
 20010965  ti_sysbios_knl_Swi_Object__get__S                               
-200119e4  ti_sysbios_knl_Swi_Object__table__V                             
+200119f4  ti_sysbios_knl_Swi_Object__table__V                             
 20010a49  ti_sysbios_knl_Swi_disable__E                                   
 2000f991  ti_sysbios_knl_Swi_post__E                                      
 2000e9a1  ti_sysbios_knl_Swi_restoreHwi__E                                
@@ -1108,15 +1107,15 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 2000ed39  ti_sysbios_knl_Swi_run__I                                       
 2000edf9  ti_sysbios_knl_Swi_schedule__I                                  
 20010c81  ti_sysbios_knl_Swi_startup__E                                   
-20012240  ti_sysbios_knl_Task_Instance_State_0_hookEnv__A                 
-20011e88  ti_sysbios_knl_Task_Instance_State_0_stack__A                   
+20012250  ti_sysbios_knl_Task_Instance_State_0_hookEnv__A                 
+20011e98  ti_sysbios_knl_Task_Instance_State_0_stack__A                   
 2000ce99  ti_sysbios_knl_Task_Instance_finalize__E                        
 2000cfa1  ti_sysbios_knl_Task_Instance_init__E                            
-20011b68  ti_sysbios_knl_Task_Module_State_0_idleTask__A                  
+20011b78  ti_sysbios_knl_Task_Module_State_0_idleTask__A                  
 200117a4  ti_sysbios_knl_Task_Module_State_0_readyQ__A                    
 200113c0  ti_sysbios_knl_Task_Module_State_inactiveQ__O                   
-20011b38  ti_sysbios_knl_Task_Module__root__V                             
-20011938  ti_sysbios_knl_Task_Module__state__V                            
+20011b48  ti_sysbios_knl_Task_Module__root__V                             
+20011948  ti_sysbios_knl_Task_Module__state__V                            
 2000e059  ti_sysbios_knl_Task_Module_startup__E                           
 200111c0  ti_sysbios_knl_Task_Object__DESC__C                             
 20010ee4  ti_sysbios_knl_Task_Object__PARAMS__C                           
@@ -1124,7 +1123,7 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 200105b9  ti_sysbios_knl_Task_Object__delete__S                           
 20010a59  ti_sysbios_knl_Task_Object__get__S                              
 200113c8  ti_sysbios_knl_Task_Object__heap__C                             
-20011888  ti_sysbios_knl_Task_Object__table__V                            
+20011898  ti_sysbios_knl_Task_Object__table__V                            
 20010bc5  ti_sysbios_knl_Task_Params__init__S                             
 2000dc2d  ti_sysbios_knl_Task_SupportProxy_Module__startupDone__S         
 20010b51  ti_sysbios_knl_Task_SupportProxy_getStackAlignment__E           
@@ -1155,7 +1154,7 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 20010ca9  ti_sysbios_knl_Task_startup__E                                  
 20010931  ti_sysbios_knl_Task_swapReturn                                  
 20010159  ti_sysbios_knl_Task_unblockI__E                                 
-20011b6c  ti_sysbios_rts_ti_ReentSupport_Module__state__V                 
+20011b7c  ti_sysbios_rts_ti_ReentSupport_Module__state__V                 
 200106f1  ti_sysbios_rts_ti_ReentSupport_getReent__E                      
 200106f1  ti_sysbios_rts_ti_ReentSupport_getReent__F                      
 20010831  ti_sysbios_rts_ti_ReentSupport_getTlsAddr__I                    
@@ -1169,7 +1168,7 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 2000d829  xdc_runtime_Core_createObject__I                                
 2000e8b9  xdc_runtime_Core_deleteObject__I                                
 200113dc  xdc_runtime_Error_E_memory__C                                   
-20011a64  xdc_runtime_Error_IgnoreBlock                                   
+20011a74  xdc_runtime_Error_IgnoreBlock                                   
 20010849  xdc_runtime_Error_init__E                                       
 200113e0  xdc_runtime_Error_policyFxn__C                                  
 200104d1  xdc_runtime_Error_policyMin__E                                  
@@ -1183,11 +1182,11 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 20010c11  xdc_runtime_Memory_HeapProxy_alloc__E                           
 20010c1b  xdc_runtime_Memory_HeapProxy_free__E                            
 2001142e  xdc_runtime_Memory_Module__id__C                                
-20011b70  xdc_runtime_Memory_Module__state__V                             
+20011b80  xdc_runtime_Memory_Module__state__V                             
 2000e0e9  xdc_runtime_Memory_alloc__E                                     
 200113f0  xdc_runtime_Memory_defaultHeapInstance__C                       
 20010a79  xdc_runtime_Memory_free__E                                      
-20011b40  xdc_runtime_Startup_Module__state__V                            
+20011b50  xdc_runtime_Startup_Module__state__V                            
 00000001  xdc_runtime_Startup__EXECFXN__C                                 
 00000001  xdc_runtime_Startup__RESETFXN__C                                
 200113f4  xdc_runtime_Startup_execImpl__C                                 
@@ -1214,9 +1213,9 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 2000eadd  xdc_runtime_System_Module_GateProxy_enter__E                    
 2000ecd5  xdc_runtime_System_Module_GateProxy_leave__E                    
 20010c99  xdc_runtime_System_Module_GateProxy_query__E                    
-20011b48  xdc_runtime_System_Module_State_0_atexitHandlers__A             
+20011b58  xdc_runtime_System_Module_State_0_atexitHandlers__A             
 2001140c  xdc_runtime_System_Module__gateObj__C                           
-20011b50  xdc_runtime_System_Module__state__V                             
+20011b60  xdc_runtime_System_Module__state__V                             
 20010c89  xdc_runtime_System_Module_startup__E                            
 20010a89  xdc_runtime_System_SupportProxy_abort__E                        
 20010a99  xdc_runtime_System_SupportProxy_exit__E                         
@@ -1699,58 +1698,58 @@ address   name
 20011724  ti_sysbios_knl_Swi_Module_State_0_readyQ__A                     
 200117a4  ti_sysbios_knl_Task_Module_State_0_readyQ__A                    
 20011824  gpioPinConfigs                                                  
-20011888  ti_sysbios_knl_Task_Object__table__V                            
-200118e4  ti_sysbios_gates_GateMutex_Object__table__V                     
-20011938  ti_sysbios_knl_Task_Module__state__V                            
-20011980  ti_sysbios_family_arm_m3_Hwi_Module__state__V                   
-200119b4  ti_sysbios_family_arm_m3_Timer_Object__table__V                 
-200119e4  ti_sysbios_knl_Swi_Object__table__V                             
-20011a14  ti_sysbios_knl_Clock_Module__state__V                           
-20011a40  ti_sysbios_BIOS_Module__state__V                                
-20011a64  xdc_runtime_Error_IgnoreBlock                                   
-20011a84  ti_sysbios_knl_Swi_Module__state__V                             
-20011aa0  ti_sysbios_family_arm_m3_Hwi_Object__table__V                   
-20011ab8  ti_sysbios_heaps_HeapMem_Object__table__V                       
-20011ad0  gpioCallbackFunctions                                           
-20011ae0  ti_sysbios_family_arm_m3_Timer_Module__state__V                 
-20011af6  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excActive__A        
-20011af8  _lock                                                           
-20011afc  _unlock                                                         
-20011b00  pwm1                                                            
-20011b04  pwm2                                                            
-20011b08  ti_sysbios_family_arm_m3_Hwi_Module__root__V                    
-20011b10  ti_sysbios_gates_GateHwi_Module__root__V                        
-20011b18  ti_sysbios_gates_GateMutex_Module__root__V                      
-20011b20  ti_sysbios_heaps_HeapMem_Module__root__V                        
-20011b28  ti_sysbios_knl_Queue_Module__root__V                            
-20011b30  ti_sysbios_knl_Semaphore_Module__root__V                        
-20011b38  ti_sysbios_knl_Task_Module__root__V                             
-20011b40  xdc_runtime_Startup_Module__state__V                            
-20011b48  xdc_runtime_System_Module_State_0_atexitHandlers__A             
-20011b50  xdc_runtime_System_Module__state__V                             
-20011b58  main_func_sp                                                    
-20011b5c  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excContext__A       
-20011b60  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excStack__A         
-20011b64  ti_sysbios_gates_GateHwi_Object__table__V                       
-20011b68  ti_sysbios_knl_Task_Module_State_0_idleTask__A                  
-20011b6c  ti_sysbios_rts_ti_ReentSupport_Module__state__V                 
-20011b70  xdc_runtime_Memory_Module__state__V                             
-20011b78  ti_sysbios_family_arm_m3_Hwi_dispatchTable                      
-20011e88  ti_sysbios_knl_Task_Instance_State_0_stack__A                   
-20012088  PowerCC32XX_contextSave                                         
-200121b4  pwmTimerCC3220SObjects                                          
-20012240  ti_sysbios_knl_Task_Instance_State_0_hookEnv__A                 
-20012244  D4                                                              
-20012245  D5                                                              
-20012246  D6                                                              
-20012247  D7                                                              
-20012248  E                                                               
-20012249  Rs                                                              
-20012250  __TI_static_base__                                              
-200124d0  __TI_Handler_Table_Base                                         
-200124dc  __TI_Handler_Table_Limit                                        
-200124e8  __TI_CINIT_Base                                                 
-200124f8  __TI_CINIT_Limit                                                
+20011898  ti_sysbios_knl_Task_Object__table__V                            
+200118f4  ti_sysbios_gates_GateMutex_Object__table__V                     
+20011948  ti_sysbios_knl_Task_Module__state__V                            
+20011990  ti_sysbios_family_arm_m3_Hwi_Module__state__V                   
+200119c4  ti_sysbios_family_arm_m3_Timer_Object__table__V                 
+200119f4  ti_sysbios_knl_Swi_Object__table__V                             
+20011a24  ti_sysbios_knl_Clock_Module__state__V                           
+20011a50  ti_sysbios_BIOS_Module__state__V                                
+20011a74  xdc_runtime_Error_IgnoreBlock                                   
+20011a94  ti_sysbios_knl_Swi_Module__state__V                             
+20011ab0  ti_sysbios_family_arm_m3_Hwi_Object__table__V                   
+20011ac8  ti_sysbios_heaps_HeapMem_Object__table__V                       
+20011ae0  gpioCallbackFunctions                                           
+20011af0  ti_sysbios_family_arm_m3_Timer_Module__state__V                 
+20011b06  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excActive__A        
+20011b08  _lock                                                           
+20011b0c  _unlock                                                         
+20011b10  pwm1                                                            
+20011b14  pwm2                                                            
+20011b18  ti_sysbios_family_arm_m3_Hwi_Module__root__V                    
+20011b20  ti_sysbios_gates_GateHwi_Module__root__V                        
+20011b28  ti_sysbios_gates_GateMutex_Module__root__V                      
+20011b30  ti_sysbios_heaps_HeapMem_Module__root__V                        
+20011b38  ti_sysbios_knl_Queue_Module__root__V                            
+20011b40  ti_sysbios_knl_Semaphore_Module__root__V                        
+20011b48  ti_sysbios_knl_Task_Module__root__V                             
+20011b50  xdc_runtime_Startup_Module__state__V                            
+20011b58  xdc_runtime_System_Module_State_0_atexitHandlers__A             
+20011b60  xdc_runtime_System_Module__state__V                             
+20011b68  main_func_sp                                                    
+20011b6c  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excContext__A       
+20011b70  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excStack__A         
+20011b74  ti_sysbios_gates_GateHwi_Object__table__V                       
+20011b78  ti_sysbios_knl_Task_Module_State_0_idleTask__A                  
+20011b7c  ti_sysbios_rts_ti_ReentSupport_Module__state__V                 
+20011b80  xdc_runtime_Memory_Module__state__V                             
+20011b88  ti_sysbios_family_arm_m3_Hwi_dispatchTable                      
+20011e98  ti_sysbios_knl_Task_Instance_State_0_stack__A                   
+20012098  PowerCC32XX_contextSave                                         
+200121c4  pwmTimerCC3220SObjects                                          
+20012250  ti_sysbios_knl_Task_Instance_State_0_hookEnv__A                 
+20012254  D4                                                              
+20012255  D5                                                              
+20012256  D6                                                              
+20012257  D7                                                              
+20012258  E                                                               
+20012259  Rs                                                              
+20012260  __TI_static_base__                                              
+200124e0  __TI_Handler_Table_Base                                         
+200124ec  __TI_Handler_Table_Limit                                        
+200124f8  __TI_CINIT_Base                                                 
+20012508  __TI_CINIT_Limit                                                
 e000e000  ti_sysbios_family_arm_m3_Hwi_nvic                               
 ffffffff  __TI_pprof_out_hndl                                             
 ffffffff  __TI_prof_data_size                                             

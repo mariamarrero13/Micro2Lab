@@ -171,6 +171,41 @@ void servo_motor()
         PWM_setDuty(pwm1, duty_lookup[duty]);
     }
 }
+void stepper_motor()
+{
+    uint8_t lookup_table_orange[] = {1,1,0,0,0,0,0,1};
+    uint8_t lookup_table_yellow[] = {0,1,1,1,0,0,0,0};
+    uint8_t lookup_table_pink[] = {0,0,0,1,1,1,0,0};
+    uint8_t lookup_table_blue[] = {0,0,0,0,0,1,1,1};
+    int index = 0;
+    /* 1 second delay */
+    uint32_t time = 10000;
+
+    /* Call driver init functions */
+    GPIO_init();
+
+    GPIO_setConfig(Board_GPIO_ORANGE, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
+    GPIO_setConfig(Board_GPIO_YELLOW, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
+    GPIO_setConfig(Board_GPIO_PINK, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
+    GPIO_setConfig(Board_GPIO_BLUE, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
+
+    /* Turn on user LED */
+    //GPIO_write(Board_GPIO_LED0, Board_GPIO_LED_ON);
+
+    while (1) {
+        GPIO_write(Board_GPIO_ORANGE, lookup_table_orange[index]);
+        GPIO_write(Board_GPIO_YELLOW, lookup_table_yellow[index]);
+        GPIO_write(Board_GPIO_PINK, lookup_table_pink[index]);
+        GPIO_write(Board_GPIO_BLUE, lookup_table_blue[index]);
+        if(index < 4){
+            index++;
+        }
+        else{
+            index = 0;
+        }
+        usleep(time);
+    }
+}
 /**
  * Helper Methods
  * */
