@@ -10,37 +10,37 @@ CMD_SRCS += \
 
 C_SRCS += \
 ../CC3220S_LAUNCHXL.c \
-../Lab5.c \
+../Lab4.c \
 ../lcd.c \
 ../main_tirtos.c 
 
 C_DEPS += \
 ./CC3220S_LAUNCHXL.d \
-./Lab5.d \
+./Lab4.d \
 ./lcd.d \
 ./main_tirtos.d 
 
 OBJS += \
 ./CC3220S_LAUNCHXL.obj \
-./Lab5.obj \
+./Lab4.obj \
 ./lcd.obj \
 ./main_tirtos.obj 
 
 OBJS__QUOTED += \
 "CC3220S_LAUNCHXL.obj" \
-"Lab5.obj" \
+"Lab4.obj" \
 "lcd.obj" \
 "main_tirtos.obj" 
 
 C_DEPS__QUOTED += \
 "CC3220S_LAUNCHXL.d" \
-"Lab5.d" \
+"Lab4.d" \
 "lcd.d" \
 "main_tirtos.d" 
 
 C_SRCS__QUOTED += \
 "../CC3220S_LAUNCHXL.c" \
-"../Lab5.c" \
+"../Lab4.c" \
 "../lcd.c" \
 "../main_tirtos.c" 
 

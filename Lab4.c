@@ -79,6 +79,9 @@ void rotary_int(uint_least8_t index)
     flag = olda<<3|oldb<<2|newa<<1|newb<<0;
     lookup_index = flag;
 }
+void push_int(uint_least8_t index){
+    puts("Push Button Pressed");
+}
 
 void *mainThread(void *arg0){
     //    LowPowerMode();
