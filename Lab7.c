@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <ti/drivers/GPIO.h>
 #include <ti/drivers/Timer.h>
+#include <ti/drivers/PWM.h>
 #include <ti/drivers/ADC.h>
 #include "Board.h"
 #include "lcd.h"
@@ -29,6 +30,7 @@ uint_fast16_t adcValue;
 
 
 Timer_Handle timer;
+PWM_Handle pwm1 = NULL;
 
 /*
  * HELPER METHODS
@@ -36,6 +38,7 @@ Timer_Handle timer;
 void init_timer(int period, Timer_Mode mode, Timer_PeriodUnits units, Timer_CallBackFxn callback);
 void write_to_port(uint8_t byte);
 int bcdtodec(uint8_t bcd);
+void PWMod_init();
 
 /*
  * ISRs
@@ -64,9 +67,9 @@ void change_dac_value() //Timer_Handle myHandle
 void *mainThread(void *arg0)
 {
 
-    generating_volts();
+    //    generating_volts();
     //    reading_volts();
-    //dimmer();
+    dimmer();
     //complimentary_task();
 
 
@@ -77,6 +80,7 @@ void generating_volts()
 {
     //this uses PINS 18, 8, 7, 6, 21, 15, 61 and 62
     GPIO_init();
+    Timer_init();
     GPIO_setConfig(Board_GPIO_28, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //    p18
     GPIO_setConfig(Board_GPIO_17, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //    p08
     GPIO_setConfig(Board_GPIO_16, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW); //    p07
@@ -90,7 +94,7 @@ void generating_volts()
     //comment this for sin wave
     uint8_t dac_values[] = {0x00, 0x17, 0x2E, 0x45, 0x5C, 0x73, 0x8A, 0xA1, 0xB8, 0xCF, 0xE6, 0xFF};
 
-//    init_timer(1000000,Timer_CONTINUOUS_CALLBACK,Timer_PERIOD_US, change_dac_value);
+    //    init_timer(1000000,Timer_CONTINUOUS_CALLBACK,Timer_PERIOD_US, change_dac_value);
     while(1){
         if(o_index!=index){
             write_to_port(dac_values[index]);
@@ -145,6 +149,7 @@ void reading_volts()
             adcValueUv/=10;
             ltoa( adcValueUv%10,first);
             //add hex value to lcd
+            //this should be line two
             lcd_string(first);
             lcd_string(".");
             lcd_string(sec);
@@ -154,6 +159,49 @@ void reading_volts()
             sleep(1);
 
         }
+    }
+}
+void dimmer()
+{
+    uint8_t result;
+    uint32_t adcValueUv;
+    uint16_t duty_val;
+    uint8_t lcd_duty[1];
+
+    ADC_init();
+    lcd_init_4bit(Board_GPIO_28,Board_GPIO_17,Board_GPIO_16,Board_GPIO_15,Board_GPIO_22,Board_GPIO_25);
+    lcd_init_4bit(Board_GPIO_28,Board_GPIO_17,Board_GPIO_16,Board_GPIO_15,Board_GPIO_22,Board_GPIO_25);
+    PWMod_init();
+
+    ADC_Params params;
+    ADC_Params_init(&params);
+    ADC_Handle adcHandle = ADC_open(CC3220S_LAUNCHXL_ADC0, &params);  //pin 59 used
+    while(1){
+        result =  ADC_convert(adcHandle, &adcValue);
+
+        if (result == ADC_STATUS_SUCCESS)
+        {
+            adcValueUv = ADC_convertToMicroVolts(adcHandle,adcValue)/421,530;
+            duty_val = (adcValueUv*1000)/1500;
+            PWM_setDuty(pwm1,duty_val); //pin 1 used
+            sprintf(lcd_duty, "%03d", duty_val/10);
+            lcd_command(lcd_SetCursor|lcd_LineOne);
+            lcd_string(lcd_duty);
+
+            if(adcValueUv<100){
+                lcd_command(lcd_SetCursor|lcd_LineTwo);
+                lcd_string("MIN");
+            }
+            else if(adcValueUv>1490){
+                lcd_command(lcd_SetCursor|lcd_LineTwo);
+                lcd_string("MAX");
+            }
+            else{
+                lcd_command(lcd_SetCursor|lcd_LineTwo);
+                lcd_string("                "); //clear line
+            }
+        }
+        usleep(1000);
     }
 }
 
@@ -187,7 +235,21 @@ void write_to_port(uint8_t byte)
     GPIO_write(Board_GPIO_22,(unsigned int)(1 & (byte >> 2 )));
     GPIO_write(Board_GPIO_COL2,(unsigned int)(1 & (byte >> 1 )));
     GPIO_write(Board_GPIO_COL3,(unsigned int)(1 & (byte >> 0 )));
-    printf("%d%d%d%d%d%d%d%d\n",(unsigned int)(1 & (byte >> 7 )),(unsigned int)(1 & (byte >> 6)),(unsigned int)(1 & (byte >> 5 )),(unsigned int)(1 & (byte >> 4 )),(unsigned int)(1 & (byte >> 3 )),(unsigned int)(1 & (byte >> 2 )),(unsigned int)(1 & (byte >> 1 )),(unsigned int)(1 & (byte >> 0)));
+
+}
+void PWMod_init(){
+    uint16_t   pwmPeriod = 1000;
+    PWM_Params params;
+    PWM_init();
+    PWM_Params_init(&params);
+    params.dutyUnits = PWM_DUTY_US;
+    params.dutyValue = 0;
+    params.periodUnits = PWM_PERIOD_US;
+    params.periodValue = pwmPeriod;
+    pwm1 = PWM_open(Board_PWM0, &params);
+
+    PWM_start(pwm1);
+
 
 }
 int bcdtodec(uint8_t bcd)
